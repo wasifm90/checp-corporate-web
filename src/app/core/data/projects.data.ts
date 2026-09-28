@@ -12,10 +12,11 @@ export const PROJECTS_DATA: Project[] = [
     client: 'Ministry of Transport & Logistics Services',
     shortDescription: 'Multi-lane divided expressway construction, heavy-duty asphalt paving, precast prestressed bridge viaducts, and intelligent traffic management systems.',
     description: 'The Trans-Regional Expressway Corridor is a landmark civil transportation undertaking delivering 84 kilometers of continuous 8-lane heavy-duty highway infrastructure, including 6 grade-separated flyover interchanges, precast prestressed concrete viaduct spans, and comprehensive stormwater runoff culverts. CHECP deployed automated laser-guided slipform asphalt paving trains and high-compaction vibratory rollers to meet the Kingdom’s most rigorous surface regularity, friction, and heavy axle-load standards under extreme desert temperature conditions.',
-    featuredImage: '/images/projects/road-construction-expressway.jpg',
+    featuredImage: '/images/projects/highway-phase-2-paving.jpg',
     gallery: [
-      '/images/projects/desert-road-construction.jpg',
-      '/images/projects/desert-road-grading.jpg',
+      '/images/projects/highway-phase-1-earthworks.jpg',
+      '/images/projects/highway-phase-2-paving.jpg',
+      '/images/projects/highway-phase-3-commissioned.jpg',
       '/images/projects/infrastructure-bridge.jpg'
     ],
     scope: [
@@ -40,6 +41,47 @@ export const PROJECTS_DATA: Project[] = [
       { label: 'Surface Regularity', value: 'IRI < 0.85 m/km Precision' },
       { label: 'Design Service Life', value: '40-Year Structural Design' },
       { label: 'Traffic Capacity', value: '120,000 Vehicles / Day' }
+    ],
+    phases: [
+      {
+        phaseNumber: '01',
+        stageName: 'EARTHWORKS & DRAINAGE',
+        title: 'Geotechnical Subgrade & Deep Stormwater Culverts',
+        description: 'Comprehensive mass excavation, rocky terrain grading, and precision laser subgrade compaction across the desert corridor. Simultaneous installation of heavy precast reinforced concrete stormwater drainage pipe arrays and sub-base aggregate stabilization under active traffic containment.',
+        image: '/images/projects/highway-phase-1-earthworks.jpg',
+        telemetryStatus: 'SUBGRADE COMPACTION 98% • DRAINAGE ARRAYS INSTALLED',
+        specs: [
+          { label: 'Earthmoving Volume', value: '450,000 m³' },
+          { label: 'Drainage Culverts', value: '1,200mm Heavy-Duty Precast' },
+          { label: 'Surveying Method', value: '3D GPS & Digital Laser Alignment' }
+        ]
+      },
+      {
+        phaseNumber: '02',
+        stageName: 'ASPHALT PAVING TRAIN',
+        title: 'Automated Polymer-Modified Bitumen Paving',
+        description: 'Synchronized slipform paving trains placing Superpave Polymer-Modified Bitumen (PG 76-22) wearing courses. Continuous material feed trucks and multi-stage tandem vibratory compaction rollers tracked in real time via ruggedized field telemetry and thermal density monitors.',
+        image: '/images/projects/highway-phase-2-paving.jpg',
+        telemetryStatus: 'ACTIVE ASPHALT SPREAD • COMPACTION TARGET REACHED',
+        specs: [
+          { label: 'Paving Speed', value: '4.5 m/min Continuous' },
+          { label: 'Bitumen Grade', value: 'Superpave PG 76-22 Polymer' },
+          { label: 'Ride Quality Index', value: 'IRI < 0.85 m/km' }
+        ]
+      },
+      {
+        phaseNumber: '03',
+        stageName: 'COMMISSIONING & SMART ITS',
+        title: 'Bilingual Signage Gantries & Intelligent Highway Operations',
+        description: 'Turnkey commissioning of the 8-lane divided highway into full public service. Installation of high-span bilingual directional gantries (Riyadh Ring Road East & Development Zones), high-reflectivity thermal markings, solar lighting arrays, and fiber-optic Smart Highway Network Management System (ITS).',
+        image: '/images/projects/highway-phase-3-commissioned.jpg',
+        telemetryStatus: 'COMMISSIONING COMPLETE • FULL TRAFFIC CAPACITY LIVE',
+        specs: [
+          { label: 'Traffic Capacity', value: '120,000 Vehicles / Day' },
+          { label: 'Signage Spans', value: 'Bilingual Cantilever Gantries' },
+          { label: 'Safety Rating', value: 'Zero Incident Handover' }
+        ]
+      }
     ]
   },
   {

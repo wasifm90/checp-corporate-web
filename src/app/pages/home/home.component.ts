@@ -249,12 +249,34 @@ import { CounterComponent } from '../../shared/components/counter.component';
               <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
                 {{ p1.shortDescription }}
               </p>
+
+              @if (p1.phases && p1.phases.length > 0) {
+                <div class="flex flex-col gap-2 pt-2 border-t border-outline-variant">
+                  <div class="flex items-center justify-between text-[10px] font-headline tracking-wider">
+                    <span class="text-secondary font-bold uppercase">3-PHASE EXECUTION SEQUENCE</span>
+                    <span class="text-on-surface-variant text-[10px]">Subgrade → Paving → Smart ITS</span>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2">
+                    @for (phase of p1.phases; track phase.phaseNumber) {
+                      <div class="flex flex-col gap-1">
+                        <div class="aspect-[16/10] overflow-hidden bg-primary border border-outline-variant">
+                          <img [src]="phase.image" [alt]="phase.stageName" class="w-full h-full object-cover" loading="lazy" />
+                        </div>
+                        <span class="text-[9px] font-headline text-on-surface-variant truncate uppercase font-semibold">
+                          {{ phase.phaseNumber }} • {{ phase.stageName }}
+                        </span>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+
               <div class="pt-2">
                 <a 
                   [routerLink]="['/projects', p1.slug]" 
                   class="inline-flex items-center gap-2 font-headline text-[12px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
                 >
-                  <span class="border-b border-primary pb-0.5 hover:border-secondary">VIEW PROJECT</span>
+                  <span class="border-b border-primary pb-0.5 hover:border-secondary">EXPLORE 3-PHASE CASE STUDY</span>
                   <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </a>
               </div>

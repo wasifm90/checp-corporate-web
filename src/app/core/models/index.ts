@@ -1,3 +1,13 @@
+export interface ProjectPhase {
+  phaseNumber: string;
+  stageName: string;
+  title: string;
+  description: string;
+  image: string;
+  telemetryStatus: string;
+  specs?: { label: string; value: string }[];
+}
+
 export interface Project {
   id: string;
   slug: string;
@@ -17,6 +27,7 @@ export interface Project {
   approach?: string;
   outcome?: string;
   technicalSpecs?: { label: string; value: string }[];
+  phases?: ProjectPhase[];
 }
 
 export interface ServiceItem {
