@@ -159,7 +159,7 @@ export const SERVICES_DATA: ServiceItem[] = [
       { stage: 'Phase 03', title: 'Superstructure Framing', description: 'High-speed hydraulic core climbing and post-tensioning cycles.' },
       { stage: 'Phase 04', title: 'Structural Integrity Signoff', description: 'LIDAR alignment confirmation and concrete core stress testing.' }
     ],
-    relatedProjectSlugs: ['metropolitan-tower-infrastructure', 'financial-district-headquarters'],
+    relatedProjectSlugs: ['metropolitan-tower-infrastructure', 'financial-district-headquarters', 'trans-regional-expressway-corridor'],
     order: 7
   },
   {
@@ -182,7 +182,7 @@ export const SERVICES_DATA: ServiceItem[] = [
       { stage: 'Phase 03', title: 'Critical Systems MEP', description: 'Installation of high-voltage transformers, switchgear, and backup generators.' },
       { stage: 'Phase 04', title: 'Full Load Testing', description: 'Black-building simulations, load-bank testing, and operational handover.' }
     ],
-    relatedProjectSlugs: ['coastal-maritime-logistics-terminus'],
+    relatedProjectSlugs: ['coastal-maritime-logistics-terminus', 'trans-regional-expressway-corridor'],
     order: 8
   }
 ];

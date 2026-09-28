@@ -113,7 +113,7 @@ export class ProjectsIndexComponent implements OnInit {
   private projectService = inject(ProjectService);
   private seo = inject(SeoService);
 
-  readonly availableFilters = ['All', 'Commercial', 'Civil & Structural', 'Interior Fit-Out', 'Specialized Infrastructure'];
+  readonly availableFilters = ['All', 'Commercial', 'Civil & Structural', 'Highways', 'Interior Fit-Out', 'Specialized Infrastructure'];
   readonly selectedFilter = signal<string>('All');
 
   readonly filteredProjects = computed(() => {
@@ -126,7 +126,7 @@ export class ProjectsIndexComponent implements OnInit {
   ngOnInit(): void {
     this.seo.setPageMeta({
       title: 'Projects Portfolio & Case Studies | CHECP',
-      description: 'Explore landmark construction and engineering case studies executed by CHECP across commercial, civil structural, interior fit-out, and marine infrastructure.',
+      description: 'Explore landmark construction and engineering case studies executed by CHECP across commercial, civil structural, highways & expressway corridors, interior fit-out, and marine infrastructure.',
       path: '/projects'
     });
   }

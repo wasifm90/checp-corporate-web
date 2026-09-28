@@ -161,5 +161,46 @@ export const PROJECTS_DATA: Project[] = [
       { label: 'Drainage Network', value: 'Continuous Monolithic Polymer Channels' },
       { label: 'Power Resilience', value: 'Dual 33kV Substation Distribution' }
     ]
+  },
+  {
+    id: 'proj-05',
+    slug: 'trans-regional-expressway-corridor',
+    name: 'Trans-Regional Expressway & Viaduct Corridor',
+    location: 'Eastern Province / Riyadh Corridor, Saudi Arabia',
+    sector: 'Civil & Structural / Highways',
+    projectType: 'Heavy Highway & Bridge Infrastructure',
+    year: '2025',
+    client: 'Ministry of Transport & Logistics Services',
+    shortDescription: 'Multi-lane divided expressway construction, heavy-duty asphalt paving, precast prestressed bridge viaducts, and intelligent traffic management systems.',
+    description: 'The Trans-Regional Expressway Corridor is a landmark civil transportation undertaking delivering 84 kilometers of continuous 8-lane heavy-duty highway infrastructure, including 6 grade-separated flyover interchanges, precast prestressed concrete viaduct spans, and comprehensive stormwater runoff culverts. CHECP deployed automated laser-guided slipform asphalt paving trains and high-compaction vibratory rollers to meet the Kingdom’s most rigorous surface regularity, friction, and heavy axle-load standards under extreme desert temperature conditions.',
+    featuredImage: '/images/projects/road-construction-expressway.jpg',
+    gallery: [
+      '/images/projects/road-construction-expressway.jpg',
+      '/images/projects/infrastructure-bridge.jpg',
+      '/images/services/civil-structural.jpg'
+    ],
+    scope: [
+      '84 km dual-carriageway 8-lane heavy expressway construction',
+      'Automated laser-controlled asphalt paving trains and polymer-modified bitumen (PMB) surface courses',
+      '6 multi-level grade-separated flyover interchanges and precast concrete bridge decks',
+      'Continuous deep stormwater box culverts and desert flash-flood drainage networks',
+      'Smart highway ITS infrastructure, fiber-optic incident detection, and solar LED arterial lighting',
+      'Heavy steel guardrails, crash cushions, and high-reflectivity thermal road markings'
+    ],
+    metrics: [
+      { label: 'Highway Length', value: '84 km' },
+      { label: 'Asphalt Volume', value: '1.2M Tons' },
+      { label: 'Bridge Spans', value: '18 Viaducts' },
+      { label: 'Axle Load Design', value: 'Class A 130 kN' }
+    ],
+    featured: true,
+    approach: 'Deployed proprietary Polymer-Modified Bitumen (PG 76-22) mixes specially engineered to resist rutting and high ambient surface temperatures reaching 65°C. Automated laser screeds and 3D GPS machine-controlled graders achieved millimeter-level ride smoothness tolerances (IRI < 0.85 m/km).',
+    outcome: 'Delivered ahead of national logistics timeline commitments, reducing regional transit freight times by 35% with zero lost-time injuries across 4.2 million man-hours.',
+    technicalSpecs: [
+      { label: 'Pavement Type', value: 'Superpave Heavy-Duty Flexible' },
+      { label: 'Surface Regularity', value: 'IRI < 0.85 m/km Precision' },
+      { label: 'Design Service Life', value: '40-Year Structural Design' },
+      { label: 'Traffic Capacity', value: '120,000 Vehicles / Day' }
+    ]
   }
 ];

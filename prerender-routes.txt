@@ -14,6 +14,7 @@
 /projects/metropolitan-tower-infrastructure
 /projects/sovereign-wealth-executive-atrium
 /projects/coastal-maritime-logistics-terminus
+/projects/trans-regional-expressway-corridor
 /industries
 /industries/commercial-mixed-use
 /industries/healthcare-life-sciences

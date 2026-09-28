@@ -340,40 +340,76 @@ import { CounterComponent } from '../../shared/components/counter.component';
           }
         </div>
 
-        <!-- Project 4: Large Feature -->
-        @if (projectService.projects()[3]; as p4) {
-          <article class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-surface-container-low p-6 lg:p-10 border border-outline-variant">
-            <div class="w-full lg:col-span-5 order-2 lg:order-1 flex flex-col gap-4">
-              <div class="text-[11px] font-headline uppercase tracking-wider text-on-surface-variant flex items-center justify-between border-b border-outline-variant pb-3">
-                <span>{{ p4.location }}</span>
-                <span class="text-secondary font-bold">{{ p4.sector }}</span>
+        <!-- Project 4 & 5: Two-Column Desktop Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          @if (projectService.projects()[3]; as p4) {
+            <article class="flex flex-col gap-5 bg-surface-container-low p-6 border border-outline-variant">
+              <div class="w-full aspect-[16/10] overflow-hidden bg-surface-container">
+                <img 
+                  [src]="p4.featuredImage" 
+                  [alt]="p4.name" 
+                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
               </div>
-              <h3 class="font-headline text-[24px] lg:text-[28px] font-medium text-primary leading-tight">
-                {{ p4.name }}
-              </h3>
-              <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
-                {{ p4.shortDescription }}
-              </p>
-              <div class="pt-2">
-                <a 
-                  [routerLink]="['/projects', p4.slug]" 
-                  class="inline-flex items-center gap-2 font-headline text-[12px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
-                >
-                  <span class="border-b border-primary pb-0.5 hover:border-secondary">VIEW PROJECT</span>
-                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </a>
+              <div class="flex flex-col gap-3">
+                <div class="text-[11px] font-headline uppercase tracking-wider text-on-surface-variant flex items-center justify-between border-b border-outline-variant pb-2.5">
+                  <span>{{ p4.location }}</span>
+                  <span class="text-secondary font-medium">{{ p4.sector }}</span>
+                </div>
+                <h3 class="font-headline text-[22px] font-medium text-primary leading-snug">
+                  {{ p4.name }}
+                </h3>
+                <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
+                  {{ p4.shortDescription }}
+                </p>
+                <div class="pt-1">
+                  <a 
+                    [routerLink]="['/projects', p4.slug]" 
+                    class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
+                  >
+                    <span>VIEW PROJECT</span>
+                    <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                  </a>
+                </div>
               </div>
-            </div>
-            <div class="w-full lg:col-span-7 order-1 lg:order-2 aspect-[16/10] overflow-hidden bg-surface-container">
-              <img 
-                [src]="p4.featuredImage" 
-                [alt]="p4.name" 
-                class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-          </article>
-        }
+            </article>
+          }
+
+          @if (projectService.projects()[4]; as p5) {
+            <article class="flex flex-col gap-5 bg-surface-container-low p-6 border border-outline-variant">
+              <div class="w-full aspect-[16/10] overflow-hidden bg-surface-container">
+                <img 
+                  [src]="p5.featuredImage" 
+                  [alt]="p5.name" 
+                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex flex-col gap-3">
+                <div class="text-[11px] font-headline uppercase tracking-wider text-on-surface-variant flex items-center justify-between border-b border-outline-variant pb-2.5">
+                  <span>{{ p5.location }}</span>
+                  <span class="text-secondary font-medium">{{ p5.sector }}</span>
+                </div>
+                <h3 class="font-headline text-[22px] font-medium text-primary leading-snug">
+                  {{ p5.name }}
+                </h3>
+                <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
+                  {{ p5.shortDescription }}
+                </p>
+                <div class="pt-1">
+                  <a 
+                    [routerLink]="['/projects', p5.slug]" 
+                    class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
+                  >
+                    <span>VIEW PROJECT</span>
+                    <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
       </div>
 
       <div class="pt-4 max-w-7xl mx-auto w-full flex justify-center">
