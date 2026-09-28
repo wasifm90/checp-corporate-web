@@ -73,47 +73,170 @@
   transform: scale(1.035);
 }
 
-/* Cinematic Hero Video-like Motion Effects */
-@keyframes heroKenBurns {
+/* Dynamic Active Construction Hero Motion Effects */
+@keyframes heroCameraActive {
   0% {
-    transform: scale(1) translate3d(0, 0, 0);
+    transform: scale(1.02) translate3d(0, 0, 0);
   }
-  50% {
-    transform: scale(1.09) translate3d(-1.5%, -1%, 0);
+  35% {
+    transform: scale(1.08) translate3d(-1.5%, -1%, 0);
+  }
+  70% {
+    transform: scale(1.12) translate3d(1%, -1.8%, 0);
   }
   100% {
-    transform: scale(1.05) translate3d(1%, -0.5%, 0);
+    transform: scale(1.04) translate3d(1.5%, -0.5%, 0);
   }
 }
 
 .hero-cinematic-bg {
-  animation: heroKenBurns 26s ease-in-out infinite alternate;
+  animation: heroCameraActive 8.5s ease-in-out infinite alternate;
   will-change: transform;
 }
 
-@keyframes lightSweep {
+@keyframes lightSweepActive {
   0% {
     opacity: 0;
-    transform: translateX(-120%) skewX(-25deg);
+    transform: translateX(-140%) skewX(-20deg);
   }
-  35% {
-    opacity: 0.18;
+  25% {
+    opacity: 0.35;
   }
-  55% {
-    opacity: 0.18;
+  50% {
+    opacity: 0.35;
   }
   100% {
     opacity: 0;
-    transform: translateX(180%) skewX(-25deg);
+    transform: translateX(180%) skewX(-20deg);
   }
 }
 
 .hero-light-sweep {
-  background: linear-gradient(90deg, transparent 0%, rgba(200, 150, 62, 0.2) 40%, rgba(255, 255, 255, 0.3) 50%, rgba(200, 150, 62, 0.2) 60%, transparent 100%);
-  width: 120%;
+  background: linear-gradient(90deg, transparent 0%, rgba(200, 150, 62, 0.25) 35%, rgba(255, 255, 255, 0.5) 50%, rgba(200, 150, 62, 0.25) 65%, transparent 100%);
+  width: 130%;
   height: 100%;
-  animation: lightSweep 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: lightSweepActive 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: transform, opacity;
+}
+
+/* Active Hot-Works / Structural Welding Arc Flashes */
+@keyframes weldingArc {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  15% {
+    opacity: 0.95;
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 8px #FFD700) drop-shadow(0 0 16px #00E5FF);
+  }
+  18% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(1.5);
+    filter: drop-shadow(0 0 12px #FFD700) drop-shadow(0 0 24px #FFFFFF);
+  }
+  28% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.9;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px #FFD700);
+  }
+  73% {
+    opacity: 0.2;
+  }
+  76% {
+    opacity: 0.95;
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 14px #FFD700) drop-shadow(0 0 20px #FFFFFF);
+  }
+  82% {
+    opacity: 0;
+  }
+}
+
+.welding-flash-1 {
+  animation: weldingArc 3.8s ease-in-out infinite;
+}
+
+.welding-flash-2 {
+  animation: weldingArc 4.6s ease-in-out 1.2s infinite;
+}
+
+/* Laser Constructability Scan Line */
+@keyframes laserScan {
+  0% {
+    top: 5%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    top: 90%;
+    opacity: 0;
+  }
+}
+
+.laser-scan-line {
+  animation: laserScan 4.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: top, opacity;
+}
+
+/* Atmospheric Dust & Spark Particles Drift */
+@keyframes particleFloat1 {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(40px, -120px, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes particleFloat2 {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(-35px, -150px, 0);
+    opacity: 0;
+  }
+}
+
+.particle-1 {
+  animation: particleFloat1 3.5s ease-out infinite;
+}
+
+.particle-2 {
+  animation: particleFloat2 4.2s ease-out 1s infinite;
 }
 
 @keyframes livePulse {
@@ -128,5 +251,5 @@
 }
 
 .live-beacon {
-  animation: livePulse 2s ease-in-out infinite;
+  animation: livePulse 1.5s ease-in-out infinite;
 }

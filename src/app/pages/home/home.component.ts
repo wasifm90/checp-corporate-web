@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CompanyService } from '../../core/services/company.service';
 import { ProjectService } from '../../core/services/project.service';
@@ -14,19 +14,31 @@ import { CounterComponent } from '../../shared/components/counter.component';
   standalone: true,
   imports: [RouterLink, CounterComponent],
   template: `
-    <!-- SECTION 1 — CINEMATIC HERO (Video-like Ambient Effects) -->
+    <!-- SECTION 1 — CINEMATIC HERO (Active Live Construction Feed) -->
     <section class="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-end overflow-hidden bg-primary">
       
-      <!-- Cinematic Camera & Light Motion Container -->
+      <!-- Cinematic Camera & Live Work Motion Container -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <!-- Continuous Slow-Motion Architectural Camera Pan & Zoom -->
+        <!-- Continuous Fast-Paced Architectural Camera Pan & Dynamic Zoom -->
         <div 
-          class="hero-cinematic-bg absolute inset-[-6%] w-[112%] h-[112%] bg-cover bg-center bg-no-repeat"
+          class="hero-cinematic-bg absolute inset-[-7%] w-[114%] h-[114%] bg-cover bg-center bg-no-repeat"
           style="background-image: url('/images/hero/hero-main.jpg');"
         ></div>
 
         <!-- Atmospheric Architectural Light Sweep Sheen -->
         <div class="hero-light-sweep absolute inset-0 pointer-events-none"></div>
+
+        <!-- Active Structural Laser Alignment Level Line -->
+        <div class="laser-scan-line absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-secondary to-transparent shadow-[0_0_12px_#C8963E]"></div>
+
+        <!-- Active Structural Welding Arc Flash Nodes on Superstructure -->
+        <div class="welding-flash-1 absolute top-[32%] left-[45%] w-3.5 h-3.5 rounded-full bg-white"></div>
+        <div class="welding-flash-2 absolute top-[44%] right-[36%] w-4 h-4 rounded-full bg-white"></div>
+
+        <!-- Upward Drifting Spark / Dust Particles -->
+        <div class="particle-1 absolute bottom-[32%] left-[46%] w-1.5 h-1.5 rounded-full bg-secondary"></div>
+        <div class="particle-2 absolute bottom-[28%] left-[54%] w-1 h-1 rounded-full bg-white"></div>
+        <div class="particle-1 absolute bottom-[38%] right-[38%] w-1.5 h-1.5 rounded-full bg-secondary" style="animation-delay: 1.8s;"></div>
 
         <!-- Warm Amber/Gold Ambient Lighting Bloom -->
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_60%_35%,rgba(200,150,62,0.18),transparent_65%)] pointer-events-none"></div>
@@ -36,11 +48,21 @@ import { CounterComponent } from '../../shared/components/counter.component';
       </div>
 
       <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-8 pb-14 pt-32 flex flex-col gap-6 text-on-primary">
-        <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block live-beacon shadow-sm shadow-secondary/50"></span>
-          <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">
-            {{ company.profile().heroEyebrow }}
-          </span>
+        
+        <!-- Top Status Row with Live Feed Badge -->
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block live-beacon shadow-sm shadow-secondary/50"></span>
+            <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">
+              {{ company.profile().heroEyebrow }}
+            </span>
+          </div>
+
+          <!-- Video Camera Telemetry Badge -->
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 text-white font-headline text-[10px] tracking-widest uppercase">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span>LIVE SITE FEED &bull; 60 FPS</span>
+          </div>
         </div>
 
         <h1 class="font-headline text-fluid-hero leading-[1.08] font-medium tracking-tight text-white max-w-4xl">
@@ -67,8 +89,8 @@ import { CounterComponent } from '../../shared/components/counter.component';
           </a>
         </div>
 
-        <!-- Hero Sub-Bar with Live Operational Telemetry -->
-        <div class="pt-6 mt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-headline text-[11px] tracking-[0.18em] uppercase text-white/60">
+        <!-- Hero Sub-Bar with Cycling Live Site Work Operations -->
+        <div class="pt-6 mt-6 border-t border-white/15 flex flex-col md:flex-row md:items-center justify-between gap-3 font-headline text-[11px] tracking-[0.18em] uppercase text-white/60">
           <div class="flex items-center gap-4">
             <span class="text-secondary font-bold">01 BUILD</span>
             <span class="text-white/30">•</span>
@@ -76,9 +98,12 @@ import { CounterComponent } from '../../shared/components/counter.component';
             <span class="text-white/30">•</span>
             <span>03 PROJECTS</span>
           </div>
-          <div class="flex items-center gap-2 text-white/50 text-[10px] tracking-widest font-medium">
-            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-            <span>KAFD &bull; 24°46'N 46°37'E &bull; ACTIVE SITE LOGISTICS</span>
+          
+          <!-- Cycling Live Work Operations Stream -->
+          <div class="flex items-center gap-2 text-white/80 text-[11px] tracking-wider font-medium bg-black/40 px-3.5 py-1.5 border border-white/10">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+            <span class="text-secondary font-bold">CURRENT TASK:</span>
+            <span class="text-white transition-opacity duration-500">{{ liveOperations[activeOpIndex()] }}</span>
           </div>
         </div>
       </div>
@@ -777,7 +802,7 @@ import { CounterComponent } from '../../shared/components/counter.component';
     </section>
   `
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   readonly company = inject(CompanyService);
   readonly projectService = inject(ProjectService);
   readonly servicesService = inject(ServicesService);
@@ -787,12 +812,33 @@ export class HomeComponent implements OnInit {
 
   readonly activeAccordionIndex = signal<number | null>(0);
 
+  readonly liveOperations = [
+    'TOWER CRANE 01: HOISTING STRUCTURAL STEEL CORE [+185M]',
+    'SLIPFORM CONCRETE POUR: RUNNING CYCLE #14 • CONTINUOUS BATCH',
+    'UNITIZED FACADE: LEVEL 32 ACOUSTIC MODULES DEPLOYED',
+    'DIGITAL 4D BIM: 100% TOLERANCE COMPLIANCE VERIFIED'
+  ];
+  readonly activeOpIndex = signal<number>(0);
+  private timerId?: any;
+
   ngOnInit(): void {
     this.seo.setPageMeta({
       title: 'CHECP — Building with Precision. Creating Lasting Value.',
       description: 'CHECP delivers complex construction and engineering projects through disciplined planning, technical expertise, safety and uncompromising quality.',
       path: '/'
     });
+
+    if (typeof window !== 'undefined') {
+      this.timerId = setInterval(() => {
+        this.activeOpIndex.update((curr) => (curr + 1) % this.liveOperations.length);
+      }, 3000);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
   }
 
   toggleAccordion(index: number): void {
