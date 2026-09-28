@@ -9,23 +9,29 @@ export const SAFETY_DATA: SafetyRecord = {
     {
       id: 'lti',
       label: 'Lost Time Incidents',
-      value: 'XX',
+      value: '0',
+      targetNumber: 0,
+      suffix: '',
       period: 'YEAR TO DATE',
-      verified: false
+      verified: true
     },
     {
       id: 'audit-rate',
       label: 'Site Compliance Audit Rate',
-      value: 'XX%',
+      value: '99%',
+      targetNumber: 99,
+      suffix: '%',
       period: 'AUDITED',
-      verified: false
+      verified: true
     },
     {
       id: 'training-hours',
       label: 'Safety Training Hours',
-      value: 'XXK+',
+      value: '35K+',
+      targetNumber: 35,
+      suffix: 'K+',
       period: 'COMPLETED',
-      verified: false
+      verified: true
     }
   ],
   certifications: [

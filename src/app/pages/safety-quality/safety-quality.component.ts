@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { CompanyService } from '../../core/services/company.service';
 import { SeoService } from '../../core/services/seo.service';
 import { BreadcrumbsComponent } from '../../shared/components/breadcrumbs.component';
+import { CounterComponent } from '../../shared/components/counter.component';
 
 @Component({
   selector: 'app-safety-quality',
   standalone: true,
-  imports: [RouterLink, BreadcrumbsComponent],
+  imports: [RouterLink, BreadcrumbsComponent, CounterComponent],
   template: `
     <div class="pt-24 lg:pt-32 pb-20">
       
@@ -40,14 +41,20 @@ import { BreadcrumbsComponent } from '../../shared/components/breadcrumbs.compon
         </div>
       </section>
 
-      <!-- Safety Metrics (Configurable) -->
+      <!-- Safety Metrics (Incremental Count-Up) -->
       <section class="w-full bg-primary text-white py-16 px-6 lg:px-8">
         <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-8">
           @for (metric of company.safety().metrics; track metric.id) {
             <div class="p-6 border border-white/15 bg-white/5 flex flex-col justify-between gap-3">
               <span class="font-headline text-[11px] text-white/70 uppercase tracking-wider">{{ metric.label }}</span>
               <div class="flex items-baseline justify-between pt-2">
-                <span class="font-headline text-[40px] font-light text-white tracking-tight">{{ metric.value }}</span>
+                <span class="font-headline text-[40px] font-light text-white tracking-tight">
+                  @if (metric.targetNumber !== undefined) {
+                    <app-counter [target]="metric.targetNumber" [suffix]="metric.suffix || ''" [duration]="2000" />
+                  } @else {
+                    {{ metric.value }}
+                  }
+                </span>
                 <span class="font-headline text-[11px] text-secondary font-bold tracking-widest uppercase">{{ metric.period }}</span>
               </div>
             </div>

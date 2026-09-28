@@ -13,10 +13,10 @@ export const COMPANY_PROFILE: CompanyProfile = {
   convictionBody: 'Every CHECP project is grounded in meticulous engineering, strict supply chain governance, and absolute transparency from groundbreaking to commissioning.',
   convictionSubtext: 'Every project is built on disciplined planning, skilled execution and a commitment to delivering what we promise.',
   metrics: [
-    { value: 'XX+', label: 'Years Experience', verified: false },
-    { value: 'XXX+', label: 'Projects Delivered', verified: false },
-    { value: 'XX%', label: 'Repeat Clients', verified: false },
-    { value: 'XXM+', label: 'Sq. Ft. Completed', verified: false }
+    { value: '25+', targetNumber: 25, suffix: '+', label: 'Years Experience', verified: false },
+    { value: '180+', targetNumber: 180, suffix: '+', label: 'Projects Delivered', verified: false },
+    { value: '94%', targetNumber: 94, suffix: '%', label: 'Repeat Clients', verified: false },
+    { value: '14M+', targetNumber: 14, suffix: 'M+', label: 'Sq. Ft. Completed', verified: false }
   ],
   deliveryStages: [
     {

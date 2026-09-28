@@ -7,10 +7,12 @@ import { IndustryService } from '../../core/services/industry.service';
 import { InsightsService } from '../../core/services/insights.service';
 import { SeoService } from '../../core/services/seo.service';
 
+import { CounterComponent } from '../../shared/components/counter.component';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CounterComponent],
   template: `
     <!-- SECTION 1 — CINEMATIC HERO (Video-like Ambient Effects) -->
     <section class="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-end overflow-hidden bg-primary">
@@ -120,7 +122,11 @@ import { SeoService } from '../../core/services/seo.service';
         @for (metric of company.profile().metrics; track metric.label) {
           <div class="flex flex-col gap-1 border-l border-secondary/40 pl-5">
             <span class="font-headline text-[42px] lg:text-[52px] leading-tight font-light text-white tracking-tight">
-              {{ metric.value }}
+              @if (metric.targetNumber !== undefined) {
+                <app-counter [target]="metric.targetNumber" [suffix]="metric.suffix || ''" [duration]="2200" />
+              } @else {
+                {{ metric.value }}
+              }
             </span>
             <span class="font-headline text-[11px] text-white/70 uppercase tracking-wider">
               {{ metric.label }}
@@ -563,8 +569,13 @@ import { SeoService } from '../../core/services/seo.service';
             @for (metric of company.safety().metrics; track metric.id) {
               <div class="py-3.5 flex items-center justify-between">
                 <span class="font-headline text-[15px] text-primary font-medium">{{ metric.label }}</span>
-                <span class="font-headline text-[12px] text-secondary font-bold tracking-wider">
-                  {{ metric.value }} ({{ metric.period }})
+                <span class="font-headline text-[13px] text-secondary font-bold tracking-wider">
+                  @if (metric.targetNumber !== undefined) {
+                    <app-counter [target]="metric.targetNumber" [suffix]="metric.suffix || ''" [duration]="1800" />
+                  } @else {
+                    {{ metric.value }}
+                  }
+                  <span class="text-xs font-normal text-on-surface-variant ml-1">({{ metric.period }})</span>
                 </span>
               </div>
             }

@@ -86,11 +86,21 @@ export interface LocationOffice {
   description: string;
 }
 
+export interface SafetyMetric {
+  id: string;
+  label: string;
+  value: string;
+  targetNumber?: number;
+  suffix?: string;
+  period: string;
+  verified: boolean;
+}
+
 export interface SafetyRecord {
   headline: string;
   subheadline: string;
   description: string;
-  metrics: { id: string; label: string; value: string; period: string; verified: boolean }[];
+  metrics: SafetyMetric[];
   certifications: string[];
   corePrinciples: { number: string; title: string; description: string }[];
   image: string;
@@ -98,6 +108,9 @@ export interface SafetyRecord {
 
 export interface CompanyMetric {
   value: string;
+  targetNumber?: number;
+  suffix?: string;
+  prefix?: string;
   label: string;
   verified: boolean;
 }
