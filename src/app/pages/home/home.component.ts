@@ -1,0 +1,771 @@
+import { Component, inject, signal, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CompanyService } from '../../core/services/company.service';
+import { ProjectService } from '../../core/services/project.service';
+import { ServicesService } from '../../core/services/services.service';
+import { IndustryService } from '../../core/services/industry.service';
+import { InsightsService } from '../../core/services/insights.service';
+import { SeoService } from '../../core/services/seo.service';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [RouterLink],
+  template: `
+    <!-- SECTION 1 — CINEMATIC HERO -->
+    <section class="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-end overflow-hidden bg-primary">
+      <div 
+        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('/images/hero/hero-main.jpg');"
+      ></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/30"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-8 pb-14 pt-32 flex flex-col gap-6 text-on-primary">
+        <div class="flex items-center gap-2.5">
+          <span class="w-2 h-2 bg-secondary inline-block"></span>
+          <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">
+            {{ company.profile().heroEyebrow }}
+          </span>
+        </div>
+
+        <h1 class="font-headline text-fluid-hero leading-[1.08] font-medium tracking-tight text-white max-w-4xl">
+          Building with precision.<br>Creating lasting value.
+        </h1>
+
+        <p class="font-body text-fluid-body text-white/80 leading-relaxed max-w-2xl">
+          {{ company.profile().heroSupportingCopy }}
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-3">
+          <a 
+            routerLink="/contact"
+            class="h-13 py-3.5 px-7 bg-secondary text-primary font-headline text-[12px] uppercase font-bold tracking-wider flex items-center justify-center gap-2 hover:bg-white transition-colors"
+          >
+            <span>START A PROJECT</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+          <a 
+            routerLink="/projects"
+            class="h-13 py-3.5 px-7 border border-white/25 bg-white/5 backdrop-blur-sm text-white font-headline text-[12px] uppercase tracking-wider flex items-center justify-center hover:bg-white/15 transition-colors"
+          >
+            EXPLORE OUR WORK
+          </a>
+        </div>
+
+        <!-- Hero Sub-Bar -->
+        <div class="pt-6 mt-6 border-t border-white/15 flex items-center justify-between font-headline text-[11px] tracking-[0.18em] uppercase text-white/60">
+          <span class="text-secondary font-bold">01 BUILD</span>
+          <span class="text-white/30">•</span>
+          <span>02 EXPERIENCE</span>
+          <span class="text-white/30">•</span>
+          <span>03 PROJECTS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2 — COMPANY INTRODUCTION -->
+    <section class="w-full bg-surface-container-low px-6 lg:px-8 py-20 flex flex-col gap-6 border-b border-outline-variant" id="who-we-are">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-4 flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-secondary inline-block"></span>
+            <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">
+              WHO WE ARE
+            </span>
+          </div>
+          <h2 class="font-headline text-[28px] lg:text-[36px] leading-[36px] lg:leading-[44px] text-primary font-medium">
+            Built on experience.<br>Driven by relationships.
+          </h2>
+        </div>
+
+        <div class="lg:col-span-8 flex flex-col gap-6">
+          <p class="font-body text-[16px] text-on-surface-variant leading-relaxed">
+            {{ company.profile().whoWeAreBody }}
+          </p>
+          <div>
+            <a 
+              routerLink="/about" 
+              class="inline-flex items-center gap-2 text-primary font-headline text-[12px] uppercase font-bold tracking-wider hover:text-secondary transition-colors"
+            >
+              <span>ABOUT OUR COMPANY</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 — COMPANY METRICS -->
+    <section class="w-full bg-primary text-on-primary px-6 lg:px-8 py-16">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-2 md:grid-cols-4 gap-8">
+        @for (metric of company.profile().metrics; track metric.label) {
+          <div class="flex flex-col gap-1 border-l border-secondary/40 pl-5">
+            <span class="font-headline text-[42px] lg:text-[52px] leading-tight font-light text-white tracking-tight">
+              {{ metric.value }}
+            </span>
+            <span class="font-headline text-[11px] text-white/70 uppercase tracking-wider">
+              {{ metric.label }}
+            </span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- SECTION 4 — SELECTED PROJECTS (Editorial Presentation) -->
+    <section class="w-full px-6 lg:px-8 py-20 lg:py-28 flex flex-col gap-12 bg-surface" id="selected-work">
+      <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div class="flex flex-col gap-2">
+          <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">SELECTED WORK</span>
+          <h2 class="font-headline text-fluid-h2 text-primary font-medium">
+            Projects built to perform. Designed to endure.
+          </h2>
+        </div>
+        <p class="font-body text-[15px] text-on-surface-variant max-w-md">
+          Flagship engineering executions and high-specification architectural works completed across the region.
+        </p>
+      </div>
+
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-10 lg:gap-14">
+        <!-- Project 1: Large Feature -->
+        @if (projectService.projects()[0]; as p1) {
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-surface-container-low p-6 lg:p-10 border border-outline-variant">
+            <div class="w-full lg:col-span-7 aspect-[16/10] overflow-hidden bg-surface-container">
+              <img 
+                [src]="p1.featuredImage" 
+                [alt]="p1.name" 
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="w-full lg:col-span-5 flex flex-col gap-4">
+              <div class="text-[11px] font-headline uppercase tracking-wider text-on-surface-variant flex items-center justify-between border-b border-outline-variant pb-3">
+                <span>{{ p1.location }}</span>
+                <span class="text-secondary font-bold">{{ p1.sector }}</span>
+              </div>
+              <h3 class="font-headline text-[24px] lg:text-[30px] font-medium text-primary leading-tight">
+                {{ p1.name }}
+              </h3>
+              <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
+                {{ p1.shortDescription }}
+              </p>
+              <div class="pt-2">
+                <a 
+                  [routerLink]="['/projects', p1.slug]" 
+                  class="inline-flex items-center gap-2 font-headline text-[12px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
+                >
+                  <span class="border-b border-primary pb-0.5 hover:border-secondary">VIEW PROJECT</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        }
+
+        <!-- Project 2 & 3: Two-Column Desktop -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          @if (projectService.projects()[1]; as p2) {
+            <article class="flex flex-col gap-5 bg-surface-container-low p-6 border border-outline-variant">
+              <div class="w-full aspect-[16/10] overflow-hidden bg-surface-container">
+                <img 
+                  [src]="p2.featuredImage" 
+                  [alt]="p2.name" 
+                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex flex-col gap-3">
+                <div class="text-[11px] font-headline uppercase tracking-wider text-on-surface-variant flex items-center justify-between border-b border-outline-variant pb-2.5">
+                  <span>{{ p2.location }}</span>
+                  <span class="text-secondary font-medium">{{ p2.sector }}</span>
+                </div>
+                <h3 class="font-headline text-[22px] font-medium text-primary leading-snug">
+                  {{ p2.name }}
+                </h3>
+                <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
+                  {{ p2.shortDescription }}
+                </p>
+                <div class="pt-1">
+                  <a 
+                    [routerLink]="['/projects', p2.slug]" 
+                    class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
+                  >
+                    <span>VIEW PROJECT</span>
+                    <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          }
+
+          @if (projectService.projects()[2]; as p3) {
+            <article class="flex flex-col gap-5 bg-surface-container-low p-6 border border-outline-variant">
+              <div class="w-full aspect-[16/10] overflow-hidden bg-surface-container">
+                <img 
+                  [src]="p3.featuredImage" 
+                  [alt]="p3.name" 
+                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex flex-col gap-3">
+                <div class="text-[11px] font-headline uppercase tracking-wider text-on-surface-variant flex items-center justify-between border-b border-outline-variant pb-2.5">
+                  <span>{{ p3.location }}</span>
+                  <span class="text-secondary font-medium">{{ p3.sector }}</span>
+                </div>
+                <h3 class="font-headline text-[22px] font-medium text-primary leading-snug">
+                  {{ p3.name }}
+                </h3>
+                <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
+                  {{ p3.shortDescription }}
+                </p>
+                <div class="pt-1">
+                  <a 
+                    [routerLink]="['/projects', p3.slug]" 
+                    class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
+                  >
+                    <span>VIEW PROJECT</span>
+                    <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+
+        <!-- Project 4: Large Feature -->
+        @if (projectService.projects()[3]; as p4) {
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-surface-container-low p-6 lg:p-10 border border-outline-variant">
+            <div class="w-full lg:col-span-5 order-2 lg:order-1 flex flex-col gap-4">
+              <div class="text-[11px] font-headline uppercase tracking-wider text-on-surface-variant flex items-center justify-between border-b border-outline-variant pb-3">
+                <span>{{ p4.location }}</span>
+                <span class="text-secondary font-bold">{{ p4.sector }}</span>
+              </div>
+              <h3 class="font-headline text-[24px] lg:text-[28px] font-medium text-primary leading-tight">
+                {{ p4.name }}
+              </h3>
+              <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
+                {{ p4.shortDescription }}
+              </p>
+              <div class="pt-2">
+                <a 
+                  [routerLink]="['/projects', p4.slug]" 
+                  class="inline-flex items-center gap-2 font-headline text-[12px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
+                >
+                  <span class="border-b border-primary pb-0.5 hover:border-secondary">VIEW PROJECT</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+            <div class="w-full lg:col-span-7 order-1 lg:order-2 aspect-[16/10] overflow-hidden bg-surface-container">
+              <img 
+                [src]="p4.featuredImage" 
+                [alt]="p4.name" 
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="pt-4 max-w-7xl mx-auto w-full flex justify-center">
+        <a 
+          routerLink="/projects" 
+          class="w-full sm:w-auto px-10 py-4 border border-primary text-primary font-headline text-[12px] uppercase font-bold tracking-wider flex items-center justify-center gap-2 hover:bg-primary hover:text-white transition-colors"
+        >
+          <span>VIEW ALL PROJECTS</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 5 — SERVICES ACCORDION -->
+    <section class="w-full bg-surface-container-low px-6 lg:px-8 py-20 flex flex-col gap-8 border-y border-outline-variant" id="services-section">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-3">
+        <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">WHAT WE DO</span>
+        <h2 class="font-headline text-fluid-h2 text-primary font-medium">Building expertise across every stage.</h2>
+      </div>
+
+      <div class="max-w-7xl mx-auto w-full flex flex-col divide-y divide-outline-variant border-y border-outline-variant">
+        @for (service of servicesService.services(); track service.id; let idx = $index) {
+          <div class="py-5">
+            <button 
+              type="button"
+              class="w-full flex items-center justify-between text-left cursor-pointer group focus-visible:outline-2 focus-visible:outline-secondary"
+              (click)="toggleAccordion(idx)"
+              [attr.aria-expanded]="activeAccordionIndex() === idx"
+            >
+              <div class="flex items-center gap-4">
+                <span class="font-headline text-[12px] font-bold text-secondary">
+                  0{{ idx + 1 }}
+                </span>
+                <span class="font-headline text-[18px] lg:text-[20px] font-medium text-primary group-hover:text-secondary transition-colors">
+                  {{ service.name }}
+                </span>
+              </div>
+              <span 
+                class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-transform duration-300 text-[22px]"
+                [class.rotate-180]="activeAccordionIndex() === idx"
+              >
+                {{ activeAccordionIndex() === idx ? 'remove' : 'add' }}
+              </span>
+            </button>
+
+            @if (activeAccordionIndex() === idx) {
+              <div class="pt-4 pb-2 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fadeIn">
+                <p class="font-body text-[15px] text-on-surface-variant max-w-3xl leading-relaxed">
+                  {{ service.description }}
+                </p>
+                <a 
+                  [routerLink]="['/services', service.slug]"
+                  class="shrink-0 inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-secondary hover:text-primary transition-colors"
+                >
+                  <span>EXPLORE CAPABILITIES</span>
+                  <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </a>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- SECTION 6 — MARKETS / INDUSTRIES (Photographic Panels, NO Icons) -->
+    <section class="w-full px-6 lg:px-8 py-20 lg:py-28 flex flex-col gap-12 bg-surface" id="markets-section">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 max-w-7xl mx-auto w-full">
+        <div class="flex flex-col gap-2">
+          <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">MARKETS</span>
+          <h2 class="font-headline text-fluid-h2 text-primary font-medium">Expertise across complex environments.</h2>
+        </div>
+        <p class="font-body text-[15px] text-on-surface-variant max-w-md">
+          Sector-specialized engineering teams managing high-complexity technical parameters and strict delivery tolerances.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 max-w-7xl mx-auto w-full">
+        <!-- 01 Featured: Commercial -->
+        @if (industryService.industries()[0]; as ind1) {
+          <div class="lg:col-span-8 relative overflow-hidden bg-primary text-white h-72 lg:h-96 flex flex-col justify-end p-6 lg:p-10 group">
+            <div 
+              class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-40"
+              [style.backgroundImage]="'url(' + ind1.featuredImage + ')'"
+            ></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-transparent"></div>
+            <div class="relative z-10 flex flex-col gap-2.5">
+              <span class="font-headline text-[10px] text-secondary tracking-widest uppercase font-bold">01 • FEATURED SECTOR</span>
+              <h3 class="font-headline text-[24px] lg:text-[30px] font-medium text-white">{{ ind1.name }}</h3>
+              <p class="font-body text-[14px] text-white/80 max-w-xl">{{ ind1.subtitle }}</p>
+              <div class="pt-2">
+                <a [routerLink]="['/industries', ind1.slug]" class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-secondary hover:text-white transition-colors">
+                  <span class="border-b border-secondary/50 pb-0.5">EXPLORE SECTOR</span>
+                  <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- 02 Healthcare -->
+        @if (industryService.industries()[1]; as ind2) {
+          <div class="lg:col-span-4 relative overflow-hidden bg-primary text-white h-72 lg:h-96 flex flex-col justify-end p-6 lg:p-8 group">
+            <div 
+              class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-40"
+              [style.backgroundImage]="'url(' + ind2.featuredImage + ')'"
+            ></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-transparent"></div>
+            <div class="relative z-10 flex flex-col gap-2">
+              <span class="font-headline text-[10px] text-secondary tracking-widest uppercase font-bold">02 • SECTOR</span>
+              <h3 class="font-headline text-[22px] font-medium text-white">{{ ind2.name }}</h3>
+              <p class="font-body text-[13px] text-white/75 line-clamp-2">{{ ind2.subtitle }}</p>
+              <div class="pt-2">
+                <a [routerLink]="['/industries', ind2.slug]" class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-secondary hover:text-white transition-colors">
+                  <span class="border-b border-secondary/50 pb-0.5">EXPLORE SECTOR</span>
+                  <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- 03 Industrial -->
+        @if (industryService.industries()[2]; as ind3) {
+          <div class="lg:col-span-4 relative overflow-hidden bg-primary text-white h-72 flex flex-col justify-end p-6 group">
+            <div 
+              class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-40"
+              [style.backgroundImage]="'url(' + ind3.featuredImage + ')'"
+            ></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-transparent"></div>
+            <div class="relative z-10 flex flex-col gap-2">
+              <span class="font-headline text-[10px] text-secondary tracking-widest uppercase font-bold">03 • SECTOR</span>
+              <h3 class="font-headline text-[20px] font-medium text-white">{{ ind3.name }}</h3>
+              <p class="font-body text-[13px] text-white/75 line-clamp-2">{{ ind3.subtitle }}</p>
+              <div class="pt-1.5">
+                <a [routerLink]="['/industries', ind3.slug]" class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-secondary hover:text-white transition-colors">
+                  <span class="border-b border-secondary/50 pb-0.5">EXPLORE SECTOR</span>
+                  <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- 04 Hospitality -->
+        @if (industryService.industries()[3]; as ind4) {
+          <div class="lg:col-span-4 relative overflow-hidden bg-primary text-white h-72 flex flex-col justify-end p-6 group">
+            <div 
+              class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-40"
+              [style.backgroundImage]="'url(' + ind4.featuredImage + ')'"
+            ></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-transparent"></div>
+            <div class="relative z-10 flex flex-col gap-2">
+              <span class="font-headline text-[10px] text-secondary tracking-widest uppercase font-bold">04 • SECTOR</span>
+              <h3 class="font-headline text-[20px] font-medium text-white">{{ ind4.name }}</h3>
+              <p class="font-body text-[13px] text-white/75 line-clamp-2">{{ ind4.subtitle }}</p>
+              <div class="pt-1.5">
+                <a [routerLink]="['/industries', ind4.slug]" class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-secondary hover:text-white transition-colors">
+                  <span class="border-b border-secondary/50 pb-0.5">EXPLORE SECTOR</span>
+                  <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- 05 Mission Critical -->
+        @if (industryService.industries()[4]; as ind5) {
+          <div class="lg:col-span-4 relative overflow-hidden bg-primary text-white h-72 flex flex-col justify-end p-6 group">
+            <div 
+              class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-40"
+              [style.backgroundImage]="'url(' + ind5.featuredImage + ')'"
+            ></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-transparent"></div>
+            <div class="relative z-10 flex flex-col gap-2">
+              <span class="font-headline text-[10px] text-secondary tracking-widest uppercase font-bold">05 • SECTOR</span>
+              <h3 class="font-headline text-[20px] font-medium text-white">{{ ind5.name }}</h3>
+              <p class="font-body text-[13px] text-white/75 line-clamp-2">{{ ind5.subtitle }}</p>
+              <div class="pt-1.5">
+                <a [routerLink]="['/industries', ind5.slug]" class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-secondary hover:text-white transition-colors">
+                  <span class="border-b border-secondary/50 pb-0.5">EXPLORE SECTOR</span>
+                  <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- SECTION 7 — BRAND STATEMENT / CONVICTION -->
+    <section class="relative w-full py-28 px-6 lg:px-8 overflow-hidden bg-primary">
+      <div 
+        class="absolute inset-0 bg-cover bg-center"
+        style="background-image: url('/images/hero/hero-main.jpg');"
+      ></div>
+      <div class="absolute inset-0 bg-primary/90"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-col gap-6 text-on-primary">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 bg-secondary inline-block"></span>
+          <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">OUR CONVICTION</span>
+        </div>
+        <p class="font-headline text-[28px] lg:text-[40px] leading-[36px] lg:leading-[48px] font-medium text-white max-w-3xl">
+          {{ company.profile().convictionHeading }}
+        </p>
+        <p class="font-body text-[16px] text-white/80 leading-relaxed max-w-xl">
+          {{ company.profile().convictionSubtext }}
+        </p>
+        <div class="pt-3">
+          <a 
+            routerLink="/services"
+            class="inline-flex items-center gap-2 bg-secondary text-primary font-headline text-[12px] uppercase px-7 py-4 font-bold tracking-wider hover:bg-white transition-colors"
+          >
+            <span>HOW WE BUILD</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8 — PROJECT DELIVERY PROCESS -->
+    <section class="w-full bg-surface px-6 lg:px-8 py-20 lg:py-28 flex flex-col gap-12">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-3">
+        <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">FROM VISION TO COMPLETION</span>
+        <h2 class="font-headline text-fluid-h2 text-primary font-medium">A disciplined approach to delivery.</h2>
+      </div>
+
+      <!-- Desktop: Connected horizontal process / Mobile: Vertical timeline -->
+      <div class="max-w-7xl mx-auto w-full">
+        <!-- Desktop Grid -->
+        <div class="hidden lg:grid grid-cols-5 gap-6 relative">
+          <div class="absolute top-4 left-6 right-6 h-0.5 bg-outline z-0"></div>
+          @for (stage of company.profile().deliveryStages; track stage.step) {
+            <div class="relative z-10 flex flex-col gap-3 bg-surface pr-4">
+              <div class="w-8 h-8 bg-secondary text-primary font-headline font-bold text-xs flex items-center justify-center">
+                {{ stage.step }}
+              </div>
+              <h3 class="font-headline text-[20px] font-semibold text-primary pt-2">{{ stage.name }}</h3>
+              <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">{{ stage.description }}</p>
+            </div>
+          }
+        </div>
+
+        <!-- Mobile Timeline -->
+        <div class="lg:hidden relative pl-6 flex flex-col gap-8">
+          <div class="absolute left-2 top-2 bottom-3 w-px bg-outline"></div>
+          @for (stage of company.profile().deliveryStages; track stage.step) {
+            <div class="relative flex flex-col gap-1.5">
+              <div class="absolute -left-[27px] top-1.5 w-2.5 h-2.5 bg-secondary"></div>
+              <div class="flex items-baseline gap-2">
+                <span class="font-headline text-[12px] font-bold text-secondary">{{ stage.step }}</span>
+                <h3 class="font-headline text-[18px] font-semibold text-primary">{{ stage.name }}</h3>
+              </div>
+              <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">{{ stage.description }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9 — SAFETY & QUALITY -->
+    <section class="w-full bg-surface-container-low px-6 lg:px-8 py-20 flex flex-col gap-8 border-y border-outline-variant" id="safety-section">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-6 flex flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">SAFETY &amp; QUALITY</span>
+            <h2 class="font-headline text-fluid-h2 text-primary font-medium">
+              {{ company.safety().headline }}
+            </h2>
+          </div>
+          <p class="font-body text-[15px] text-on-surface-variant leading-relaxed">
+            {{ company.safety().subheadline }}
+          </p>
+
+          <div class="flex flex-col divide-y divide-outline-variant border-y border-outline-variant">
+            @for (metric of company.safety().metrics; track metric.id) {
+              <div class="py-3.5 flex items-center justify-between">
+                <span class="font-headline text-[15px] text-primary font-medium">{{ metric.label }}</span>
+                <span class="font-headline text-[12px] text-secondary font-bold tracking-wider">
+                  {{ metric.value }} ({{ metric.period }})
+                </span>
+              </div>
+            }
+          </div>
+
+          <div class="pt-2">
+            <a 
+              routerLink="/safety-quality"
+              class="inline-flex items-center gap-2 text-primary font-headline text-[12px] uppercase font-bold tracking-wider hover:text-secondary transition-colors"
+            >
+              <span>OUR APPROACH TO SAFETY</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 aspect-[16/10] overflow-hidden bg-surface-container border border-outline-variant">
+          <img 
+            [src]="company.safety().image" 
+            alt="Safety and site governance team" 
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10 — COMPANY PRESENCE (OFFICES) -->
+    <section class="w-full bg-surface px-6 lg:px-8 py-20 flex flex-col gap-8">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-2">
+        <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">OUR PRESENCE</span>
+        <h2 class="font-headline text-fluid-h2 text-primary font-medium">Building wherever our clients need us.</h2>
+      </div>
+
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        @for (office of company.locations(); track office.id) {
+          <div class="p-6 bg-surface-container-low border border-outline-variant flex flex-col justify-between gap-4">
+            <div class="flex flex-col gap-2">
+              <div class="flex justify-between items-baseline">
+                <h3 class="font-headline text-[18px] font-semibold text-primary">{{ office.title }}</h3>
+                <span class="font-headline text-[10px] uppercase text-secondary font-bold tracking-widest">{{ office.region }}</span>
+              </div>
+              <p class="font-body text-[13px] text-on-surface-variant leading-relaxed">{{ office.address }}</p>
+            </div>
+            <div class="pt-2 border-t border-outline-variant flex flex-col gap-1">
+              <span class="font-headline text-[12px] text-primary font-medium">{{ office.phone }}</span>
+              <span class="font-headline text-[12px] text-on-surface-variant">{{ office.email }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- SECTION 11 — CLIENT TESTIMONIAL -->
+    <section class="w-full bg-surface-container-low px-6 lg:px-8 py-16 flex flex-col gap-6 border-y border-outline-variant">
+      <div class="max-w-4xl mx-auto w-full flex flex-col gap-6">
+        <div class="w-8 h-1 bg-secondary"></div>
+        <blockquote class="font-headline text-[22px] lg:text-[28px] leading-[32px] lg:leading-[40px] text-primary font-medium">
+          "CHECP demonstrated relentless precision in managing complex structural parameters while maintaining absolute schedule discipline and transparent communication on our flagship development."
+        </blockquote>
+        <div class="flex flex-col gap-0.5">
+          <span class="font-headline text-[13px] font-bold uppercase tracking-wider text-primary">Executive Development Directorate</span>
+          <span class="font-body text-[13px] text-on-surface-variant">Regional Sovereign Real Estate Partner</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12 — NEWS & INSIGHTS -->
+    <section class="w-full bg-surface px-6 lg:px-8 py-20 flex flex-col gap-10">
+      <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div class="flex flex-col gap-2">
+          <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">INSIGHTS</span>
+          <h2 class="font-headline text-fluid-h2 text-primary font-medium">Latest from our projects and our people.</h2>
+        </div>
+        <a 
+          routerLink="/insights" 
+          class="inline-flex items-center gap-1.5 font-headline text-[11px] uppercase font-bold tracking-wider text-primary hover:text-secondary transition-colors"
+        >
+          <span>VIEW ALL ARTICLES</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Featured Insight (Large Left) -->
+        @if (insightsService.articles()[0]; as art1) {
+          <article class="lg:col-span-7 flex flex-col gap-4">
+            <div class="w-full aspect-[16/10] overflow-hidden bg-surface-container border border-outline-variant">
+              <img 
+                [src]="art1.featuredImage" 
+                [alt]="art1.title" 
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <div class="flex justify-between items-center text-[11px] font-headline uppercase tracking-wider text-on-surface-variant">
+                <span class="text-secondary font-bold">{{ art1.category }}</span>
+                <span>{{ art1.date }}</span>
+              </div>
+              <h3 class="font-headline text-[22px] font-semibold text-primary leading-snug">
+                <a [routerLink]="['/insights', art1.slug]" class="hover:text-secondary transition-colors">
+                  {{ art1.title }}
+                </a>
+              </h3>
+              <p class="font-body text-[14px] text-on-surface-variant leading-relaxed">
+                {{ art1.excerpt }}
+              </p>
+            </div>
+          </article>
+        }
+
+        <!-- Secondary Insights (Stacked Right) -->
+        <div class="lg:col-span-5 flex flex-col divide-y divide-outline-variant">
+          @for (art of insightsService.articles().slice(1, 3); track art.id) {
+            <article class="py-6 first:pt-0 flex gap-5 items-start">
+              <div class="w-28 h-28 shrink-0 overflow-hidden bg-surface-container border border-outline-variant">
+                <img 
+                  [src]="art.featuredImage" 
+                  [alt]="art.title" 
+                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex flex-col justify-between py-0.5 gap-2">
+                <div class="flex items-center gap-3 text-[10px] font-headline uppercase tracking-wider text-secondary font-bold">
+                  <span>{{ art.category }}</span>
+                  <span class="text-outline">•</span>
+                  <span class="text-on-surface-variant font-normal">{{ art.date }}</span>
+                </div>
+                <h4 class="font-headline text-[16px] font-semibold text-primary leading-snug">
+                  <a [routerLink]="['/insights', art.slug]" class="hover:text-secondary transition-colors">
+                    {{ art.title }}
+                  </a>
+                </h4>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 13 — CAREERS & CULTURE -->
+    <section class="w-full bg-surface-container-low px-6 lg:px-8 py-20 flex flex-col gap-8 border-y border-outline-variant" id="careers-section">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-6 aspect-[16/10] overflow-hidden bg-surface-container border border-outline-variant order-2 lg:order-1">
+          <img 
+            [src]="company.careers().image" 
+            alt="Engineering collaboration on active site" 
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="lg:col-span-6 flex flex-col gap-5 order-1 lg:order-2">
+          <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">CAREERS</span>
+          <h2 class="font-headline text-fluid-h2 text-primary font-medium">
+            {{ company.careers().headline }}
+          </h2>
+          <p class="font-body text-[15px] text-on-surface-variant leading-relaxed">
+            {{ company.careers().cultureDescription }}
+          </p>
+          <div class="pt-2">
+            <a 
+              routerLink="/careers"
+              class="inline-flex items-center gap-2 bg-primary text-white font-headline text-[12px] uppercase px-7 py-4 font-bold tracking-wider hover:bg-secondary hover:text-primary transition-colors"
+            >
+              <span>VIEW OPPORTUNITIES</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 14 — FINAL CALL TO ACTION -->
+    <section class="w-full bg-primary px-6 lg:px-8 py-24 text-on-primary flex flex-col gap-6" id="contact-section">
+      <div class="max-w-4xl mx-auto w-full text-center flex flex-col items-center gap-5">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 bg-secondary inline-block"></span>
+          <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">HAVE A PROJECT IN MIND?</span>
+        </div>
+        <h2 class="font-headline text-fluid-h2 text-white font-medium">
+          Let's build something remarkable.
+        </h2>
+        <p class="font-body text-[16px] text-white/80 leading-relaxed max-w-xl">
+          Connect with CHECP preconstruction specialists to discuss scheduling, constructability feasibility, and contracting models.
+        </p>
+        <div class="pt-4">
+          <a 
+            routerLink="/contact"
+            class="h-14 px-8 bg-secondary text-primary font-headline text-[12px] uppercase tracking-wider flex items-center gap-3 font-bold hover:bg-white transition-colors"
+          >
+            <span>START A CONVERSATION</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  `
+})
+export class HomeComponent implements OnInit {
+  readonly company = inject(CompanyService);
+  readonly projectService = inject(ProjectService);
+  readonly servicesService = inject(ServicesService);
+  readonly industryService = inject(IndustryService);
+  readonly insightsService = inject(InsightsService);
+  private seo = inject(SeoService);
+
+  readonly activeAccordionIndex = signal<number | null>(0);
+
+  ngOnInit(): void {
+    this.seo.setPageMeta({
+      title: 'CHECP — Building with Precision. Creating Lasting Value.',
+      description: 'CHECP delivers complex construction and engineering projects through disciplined planning, technical expertise, safety and uncompromising quality.',
+      path: '/'
+    });
+  }
+
+  toggleAccordion(index: number): void {
+    this.activeAccordionIndex.update((curr) => (curr === index ? null : index));
+  }
+}
