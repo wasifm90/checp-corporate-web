@@ -111,15 +111,14 @@ import { CounterComponent } from '../../shared/components/counter.component';
           </a>
         </div>
 
-        <!-- Video Reel Timeline & Interaction Bar -->
-        <div class="mt-2 pt-4 border-t border-white/15 flex flex-col gap-3">
-          
-          <!-- Segmented Video Timeline Progress Bars -->
-          <div class="grid grid-cols-4 gap-2.5 w-full max-w-xl">
+        <!-- Video Reel Timeline Bar (Sleek, Minimalist, Progress Bar Preserved) -->
+        <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between gap-6 max-w-xl">
+          <!-- Segmented Progress Bar -->
+          <div class="grid grid-cols-4 gap-2 flex-1">
             @for (feed of videoFeeds; track feed.id; let idx = $index) {
               <div 
                 (click)="selectFeed(idx); $event.stopPropagation()"
-                class="group flex flex-col gap-1.5 cursor-pointer py-1"
+                class="group py-2 cursor-pointer"
                 [title]="feed.title"
               >
                 <div class="h-1 sm:h-1.5 w-full bg-white/20 rounded-full overflow-hidden transition-colors group-hover:bg-white/40">
@@ -129,53 +128,34 @@ import { CounterComponent } from '../../shared/components/counter.component';
                     [class.w-0]="activeFeedIndex() !== idx"
                   ></div>
                 </div>
-                <div class="hidden sm:flex justify-between items-center text-[10px] font-headline tracking-wider uppercase">
-                  <span [class]="activeFeedIndex() === idx ? 'text-secondary font-bold' : 'text-white/50 group-hover:text-white/80'">
-                    {{ feed.title }}
-                  </span>
-                </div>
               </div>
             }
           </div>
 
-          <!-- Active Site Telemetry Readout & Interaction Controls -->
-          <div class="flex flex-wrap items-center justify-between gap-3 text-[11px] font-headline tracking-wider">
-            <!-- Active Site Telemetry Readout -->
-            <div class="flex items-center gap-2 text-white/85 bg-black/45 backdrop-blur-sm px-3.5 py-1.5 border border-white/15">
-              <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
-              <span class="text-secondary font-bold">{{ videoFeeds[activeFeedIndex()].location }}:</span>
-              <span class="text-white">{{ videoFeeds[activeFeedIndex()].task }}</span>
-            </div>
-
-            <!-- Interaction Hints & Navigation Chevrons -->
-            <div class="flex items-center gap-3">
-              <span class="text-white/50 text-[10px] sm:text-[11px] tracking-wider uppercase flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-[14px] text-secondary">swipe</span>
-                <span class="hidden sm:inline">Click banner or swipe to advance</span>
-                <span class="sm:hidden">Swipe or tap banner</span>
-              </span>
-
-              <div class="flex items-center gap-1">
-                <button
-                  type="button"
-                  (click)="prevFeed(); $event.stopPropagation()"
-                  class="w-7 h-7 flex items-center justify-center bg-black/50 hover:bg-white/20 border border-white/20 text-white rounded-sm transition-colors cursor-pointer"
-                  title="Previous scene"
-                >
-                  <span class="material-symbols-outlined text-[15px]">chevron_left</span>
-                </button>
-                <button
-                  type="button"
-                  (click)="nextFeed(); $event.stopPropagation()"
-                  class="w-7 h-7 flex items-center justify-center bg-black/50 hover:bg-white/20 border border-white/20 text-white rounded-sm transition-colors cursor-pointer"
-                  title="Next scene"
-                >
-                  <span class="material-symbols-outlined text-[15px]">chevron_right</span>
-                </button>
-              </div>
+          <!-- Minimal Scene Counter & Navigation Controls -->
+          <div class="flex items-center gap-3 shrink-0">
+            <span class="text-[11px] font-headline tracking-widest text-white/60">
+              <span class="text-secondary font-bold">0{{ activeFeedIndex() + 1 }}</span> / 0{{ videoFeeds.length }}
+            </span>
+            <div class="flex items-center gap-1">
+              <button
+                type="button"
+                (click)="prevFeed(); $event.stopPropagation()"
+                class="w-7 h-7 flex items-center justify-center bg-black/40 hover:bg-white/20 border border-white/15 text-white rounded transition-colors cursor-pointer"
+                title="Previous scene"
+              >
+                <span class="material-symbols-outlined text-[14px]">chevron_left</span>
+              </button>
+              <button
+                type="button"
+                (click)="nextFeed(); $event.stopPropagation()"
+                class="w-7 h-7 flex items-center justify-center bg-black/40 hover:bg-white/20 border border-white/15 text-white rounded transition-colors cursor-pointer"
+                title="Next scene"
+              >
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+              </button>
             </div>
           </div>
-
         </div>
       </div>
     </section>

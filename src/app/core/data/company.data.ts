@@ -6,7 +6,7 @@ export const COMPANY_PROFILE: CompanyProfile = {
   tagline: 'Building with precision. Creating lasting value.',
   heroEyebrow: 'CONSTRUCTION • ENGINEERING • DELIVERY',
   heroHeadline: 'Building with precision. Creating lasting value.',
-  heroSupportingCopy: 'We deliver complex construction and engineering projects through disciplined planning, technical expertise, safety and uncompromising quality.',
+  heroSupportingCopy: 'Disciplined engineering, heavy civil contracting, and turnkey delivery across the Kingdom.',
   whoWeAreHeading: 'Built on experience.\nDriven by relationships.',
   whoWeAreBody: 'CHECP directs landmark commercial developments, heavy civil works, and high-specification architectural assets across the Kingdom of Saudi Arabia and the wider GCC region. Through disciplined preconstruction, advanced construction management, and rigorous craftsmanship, we forge enduring built environments for sovereign, institutional, and private stakeholders.',
   convictionHeading: "We don't just build structures. We build confidence in every detail.",
