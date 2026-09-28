@@ -15,8 +15,8 @@ export const PROJECTS_DATA: Project[] = [
     featuredImage: '/images/projects/financial-district-hq.jpg',
     gallery: [
       '/images/projects/financial-district-hq.jpg',
-      '/images/services/civil-structural.jpg',
-      '/images/services/design-build.jpg'
+      '/images/projects/financial-district-cantilever.jpg',
+      '/images/projects/financial-district-glazing.jpg'
     ],
     scope: [
       'Turnkey Design & Build contracting',
@@ -56,8 +56,8 @@ export const PROJECTS_DATA: Project[] = [
     featuredImage: '/images/projects/metropolitan-tower.jpg',
     gallery: [
       '/images/projects/metropolitan-tower.jpg',
-      '/images/projects/infrastructure-bridge.jpg',
-      '/images/services/general-contracting.jpg'
+      '/images/projects/metropolitan-slipform-core.jpg',
+      '/images/projects/metropolitan-tower-erection.jpg'
     ],
     scope: [
       'Subterranean deep excavation (26m depth across 5 basement levels)',
@@ -96,8 +96,8 @@ export const PROJECTS_DATA: Project[] = [
     featuredImage: '/images/projects/sovereign-wealth-atrium.jpg',
     gallery: [
       '/images/projects/sovereign-wealth-atrium.jpg',
-      '/images/services/interior-fitout.jpg',
-      '/images/services/construction-management.jpg'
+      '/images/projects/sovereign-atrium-millwork.jpg',
+      '/images/projects/sovereign-executive-mezzanine.jpg'
     ],
     scope: [
       'Comprehensive turnkey interior fit-out and architectural millwork',
@@ -136,8 +136,8 @@ export const PROJECTS_DATA: Project[] = [
     featuredImage: '/images/projects/coastal-maritime-terminus.jpg',
     gallery: [
       '/images/projects/coastal-maritime-terminus.jpg',
-      '/images/services/specialized-infrastructure.jpg',
-      '/images/projects/stadium-canopy.jpg'
+      '/images/projects/maritime-quay-cranes.jpg',
+      '/images/projects/maritime-berth-apron.jpg'
     ],
     scope: [
       'Heavy marine civil engineering and coastal sheet piling',
@@ -177,7 +177,7 @@ export const PROJECTS_DATA: Project[] = [
     gallery: [
       '/images/projects/road-construction-expressway.jpg',
       '/images/projects/infrastructure-bridge.jpg',
-      '/images/services/civil-structural.jpg'
+      '/images/projects/expressway-compactor-train.jpg'
     ],
     scope: [
       '84 km dual-carriageway 8-lane heavy expressway construction',

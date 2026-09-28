@@ -134,7 +134,7 @@ import { Project } from '../../core/models';
             <span class="font-headline text-[11px] uppercase tracking-[0.18em] text-secondary font-bold">PHOTOGRAPHY</span>
             <h2 class="font-headline text-[24px] font-medium text-primary">Site Execution Gallery</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               @for (img of p.gallery; track img) {
                 <div class="w-full aspect-[16/10] overflow-hidden bg-surface-container border border-outline-variant">
                   <img [src]="img" [alt]="p.name" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" />
