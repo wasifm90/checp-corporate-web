@@ -72,3 +72,61 @@
 .editorial-img-zoom:hover {
   transform: scale(1.035);
 }
+
+/* Cinematic Hero Video-like Motion Effects */
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.09) translate3d(-1.5%, -1%, 0);
+  }
+  100% {
+    transform: scale(1.05) translate3d(1%, -0.5%, 0);
+  }
+}
+
+.hero-cinematic-bg {
+  animation: heroKenBurns 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes lightSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-25deg);
+  }
+  35% {
+    opacity: 0.18;
+  }
+  55% {
+    opacity: 0.18;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(180%) skewX(-25deg);
+  }
+}
+
+.hero-light-sweep {
+  background: linear-gradient(90deg, transparent 0%, rgba(200, 150, 62, 0.2) 40%, rgba(255, 255, 255, 0.3) 50%, rgba(200, 150, 62, 0.2) 60%, transparent 100%);
+  width: 120%;
+  height: 100%;
+  animation: lightSweep 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.25);
+  }
+}
+
+.live-beacon {
+  animation: livePulse 2s ease-in-out infinite;
+}

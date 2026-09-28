@@ -12,17 +12,30 @@ import { SeoService } from '../../core/services/seo.service';
   standalone: true,
   imports: [RouterLink],
   template: `
-    <!-- SECTION 1 — CINEMATIC HERO -->
+    <!-- SECTION 1 — CINEMATIC HERO (Video-like Ambient Effects) -->
     <section class="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-end overflow-hidden bg-primary">
-      <div 
-        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style="background-image: url('/images/hero/hero-main.jpg');"
-      ></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/30"></div>
+      
+      <!-- Cinematic Camera & Light Motion Container -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <!-- Continuous Slow-Motion Architectural Camera Pan & Zoom -->
+        <div 
+          class="hero-cinematic-bg absolute inset-[-6%] w-[112%] h-[112%] bg-cover bg-center bg-no-repeat"
+          style="background-image: url('/images/hero/hero-main.jpg');"
+        ></div>
+
+        <!-- Atmospheric Architectural Light Sweep Sheen -->
+        <div class="hero-light-sweep absolute inset-0 pointer-events-none"></div>
+
+        <!-- Warm Amber/Gold Ambient Lighting Bloom -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_60%_35%,rgba(200,150,62,0.18),transparent_65%)] pointer-events-none"></div>
+
+        <!-- Multi-tier Contrast Gradients -->
+        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/30 pointer-events-none"></div>
+      </div>
 
       <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-8 pb-14 pt-32 flex flex-col gap-6 text-on-primary">
         <div class="flex items-center gap-2.5">
-          <span class="w-2 h-2 bg-secondary inline-block"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block live-beacon shadow-sm shadow-secondary/50"></span>
           <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">
             {{ company.profile().heroEyebrow }}
           </span>
@@ -52,13 +65,19 @@ import { SeoService } from '../../core/services/seo.service';
           </a>
         </div>
 
-        <!-- Hero Sub-Bar -->
-        <div class="pt-6 mt-6 border-t border-white/15 flex items-center justify-between font-headline text-[11px] tracking-[0.18em] uppercase text-white/60">
-          <span class="text-secondary font-bold">01 BUILD</span>
-          <span class="text-white/30">•</span>
-          <span>02 EXPERIENCE</span>
-          <span class="text-white/30">•</span>
-          <span>03 PROJECTS</span>
+        <!-- Hero Sub-Bar with Live Operational Telemetry -->
+        <div class="pt-6 mt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-headline text-[11px] tracking-[0.18em] uppercase text-white/60">
+          <div class="flex items-center gap-4">
+            <span class="text-secondary font-bold">01 BUILD</span>
+            <span class="text-white/30">•</span>
+            <span>02 EXPERIENCE</span>
+            <span class="text-white/30">•</span>
+            <span>03 PROJECTS</span>
+          </div>
+          <div class="flex items-center gap-2 text-white/50 text-[10px] tracking-widest font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            <span>KAFD &bull; 24°46'N 46°37'E &bull; ACTIVE SITE LOGISTICS</span>
+          </div>
         </div>
       </div>
     </section>
