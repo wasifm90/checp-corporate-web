@@ -14,16 +14,28 @@ import { CounterComponent } from '../../shared/components/counter.component';
   standalone: true,
   imports: [RouterLink, CounterComponent],
   template: `
-    <!-- SECTION 1 — CINEMATIC HERO (Active Live Construction Feed) -->
+    <!-- SECTION 1 — CINEMATIC HERO (Fresh Architectural Video Reel Experience) -->
     <section class="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-end overflow-hidden bg-primary">
       
-      <!-- Cinematic Camera & Live Work Motion Container -->
+      <!-- Video Viewport & Multi-Camera Dynamic Backgrounds -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <!-- Continuous Fast-Paced Architectural Camera Pan & Dynamic Zoom -->
-        <div 
-          class="hero-cinematic-bg absolute inset-[-7%] w-[114%] h-[114%] bg-cover bg-center bg-no-repeat"
-          style="background-image: url('/images/hero/hero-main.jpg');"
-        ></div>
+        
+        <!-- Multi-Camera Background Layers with Cross-Fade & Dynamic Faster Motion -->
+        @for (feed of videoFeeds; track feed.id; let idx = $index) {
+          <div 
+            class="absolute inset-[-6%] w-[112%] h-[112%] bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out"
+            [class.opacity-100]="activeFeedIndex() === idx"
+            [class.opacity-0]="activeFeedIndex() !== idx"
+            [class.hero-video-active-0]="activeFeedIndex() === 0 && idx === 0"
+            [class.hero-video-active-1]="activeFeedIndex() === 1 && idx === 1"
+            [class.hero-video-active-2]="activeFeedIndex() === 2 && idx === 2"
+            [class.hero-video-active-3]="activeFeedIndex() === 3 && idx === 3"
+            [style.backgroundImage]="'url(' + feed.image + ')'"
+          ></div>
+        }
+
+        <!-- Broadcast Video Scanlines & HUD Texture -->
+        <div class="video-scanline-overlay absolute inset-0 opacity-25 pointer-events-none"></div>
 
         <!-- Atmospheric Architectural Light Sweep Sheen -->
         <div class="hero-light-sweep absolute inset-0 pointer-events-none"></div>
@@ -32,8 +44,8 @@ import { CounterComponent } from '../../shared/components/counter.component';
         <div class="laser-scan-line absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-secondary to-transparent shadow-[0_0_12px_#C8963E]"></div>
 
         <!-- Active Structural Welding Arc Flash Nodes on Superstructure -->
-        <div class="welding-flash-1 absolute top-[32%] left-[45%] w-3.5 h-3.5 rounded-full bg-white"></div>
-        <div class="welding-flash-2 absolute top-[44%] right-[36%] w-4 h-4 rounded-full bg-white"></div>
+        <div class="welding-flash-1 absolute top-[30%] left-[48%] w-3.5 h-3.5 rounded-full bg-white"></div>
+        <div class="welding-flash-2 absolute top-[42%] right-[32%] w-4 h-4 rounded-full bg-white"></div>
 
         <!-- Upward Drifting Spark / Dust Particles -->
         <div class="particle-1 absolute bottom-[32%] left-[46%] w-1.5 h-1.5 rounded-full bg-secondary"></div>
@@ -43,25 +55,46 @@ import { CounterComponent } from '../../shared/components/counter.component';
         <!-- Warm Amber/Gold Ambient Lighting Bloom -->
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_60%_35%,rgba(200,150,62,0.18),transparent_65%)] pointer-events-none"></div>
 
-        <!-- Multi-tier Contrast Gradients -->
+        <!-- Multi-tier Contrast Gradients for Optimal Legibility -->
         <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/30 pointer-events-none"></div>
       </div>
 
-      <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-8 pb-14 pt-32 flex flex-col gap-6 text-on-primary">
+      <!-- Viewfinder Architectural Corner Brackets Overlay -->
+      <div class="absolute inset-4 sm:inset-6 lg:inset-8 pointer-events-none flex flex-col justify-between z-10">
+        <div class="flex justify-between items-start">
+          <div class="w-5 h-5 border-t-2 border-l-2 border-secondary/70"></div>
+          <div class="w-5 h-5 border-t-2 border-r-2 border-secondary/70"></div>
+        </div>
+        <div class="flex justify-between items-end">
+          <div class="w-5 h-5 border-b-2 border-l-2 border-secondary/70"></div>
+          <div class="w-5 h-5 border-b-2 border-r-2 border-secondary/70"></div>
+        </div>
+      </div>
+
+      <!-- Hero Content Container -->
+      <div class="relative z-20 max-w-7xl mx-auto w-full px-6 lg:px-8 pb-8 pt-28 lg:pt-36 flex flex-col gap-6 text-on-primary">
         
-        <!-- Top Status Row with Live Feed Badge -->
-        <div class="flex items-center justify-between gap-4">
-          <div class="flex items-center gap-2.5">
+        <!-- Live Video Header Bar & Telemetry HUD -->
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
             <span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block live-beacon shadow-sm shadow-secondary/50"></span>
             <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">
               {{ company.profile().heroEyebrow }}
             </span>
           </div>
 
-          <!-- Video Camera Telemetry Badge -->
-          <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 text-white font-headline text-[10px] tracking-widest uppercase">
-            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            <span>LIVE SITE FEED &bull; 60 FPS</span>
+          <!-- Video Broadcast Telemetry HUD Pill -->
+          <div class="flex items-center gap-2.5 px-3 py-1.5 bg-black/65 backdrop-blur-md border border-white/20 text-white font-headline text-[10px] sm:text-[11px] tracking-wider uppercase">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span class="font-bold text-red-400">REC</span>
+              <span class="text-white/40">|</span>
+              <span class="font-mono text-[11px] sm:text-[12px] text-white tracking-widest font-semibold">{{ timecode() }}</span>
+            </div>
+            <span class="hidden sm:inline text-white/30">•</span>
+            <span class="hidden sm:inline text-white/80">4K UHD &bull; 60 FPS</span>
+            <span class="hidden md:inline text-white/30">•</span>
+            <span class="hidden md:inline text-secondary font-bold">{{ videoFeeds[activeFeedIndex()].code }}</span>
           </div>
         </div>
 
@@ -69,11 +102,11 @@ import { CounterComponent } from '../../shared/components/counter.component';
           Building with precision.<br>Creating lasting value.
         </h1>
 
-        <p class="font-body text-fluid-body text-white/80 leading-relaxed max-w-2xl">
+        <p class="font-body text-fluid-body text-white/85 leading-relaxed max-w-2xl">
           {{ company.profile().heroSupportingCopy }}
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-4 pt-3">
+        <div class="flex flex-col sm:flex-row gap-4 pt-1">
           <a 
             routerLink="/contact"
             class="h-13 py-3.5 px-7 bg-secondary text-primary font-headline text-[12px] uppercase font-bold tracking-wider flex items-center justify-center gap-2 hover:bg-white transition-colors"
@@ -89,22 +122,47 @@ import { CounterComponent } from '../../shared/components/counter.component';
           </a>
         </div>
 
-        <!-- Hero Sub-Bar with Cycling Live Site Work Operations -->
-        <div class="pt-6 mt-6 border-t border-white/15 flex flex-col md:flex-row md:items-center justify-between gap-3 font-headline text-[11px] tracking-[0.18em] uppercase text-white/60">
-          <div class="flex items-center gap-4">
-            <span class="text-secondary font-bold">01 BUILD</span>
-            <span class="text-white/30">•</span>
-            <span>02 EXPERIENCE</span>
-            <span class="text-white/30">•</span>
-            <span>03 PROJECTS</span>
-          </div>
+        <!-- Video Multi-Camera Controller Bar -->
+        <div class="mt-2 pt-4 border-t border-white/15 flex flex-col gap-3">
           
-          <!-- Cycling Live Work Operations Stream -->
-          <div class="flex items-center gap-2 text-white/80 text-[11px] tracking-wider font-medium bg-black/40 px-3.5 py-1.5 border border-white/10">
-            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
-            <span class="text-secondary font-bold">CURRENT TASK:</span>
-            <span class="text-white transition-opacity duration-500">{{ liveOperations[activeOpIndex()] }}</span>
+          <!-- Channel Switcher Tabs -->
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <button 
+                type="button"
+                (click)="togglePlay()"
+                class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white flex items-center gap-1.5 text-[11px] font-headline uppercase tracking-wider transition-colors cursor-pointer"
+                [title]="isPlaying() ? 'Pause Live Camera Feed' : 'Resume Live Camera Feed'"
+              >
+                <span class="material-symbols-outlined text-[15px]">
+                  {{ isPlaying() ? 'pause' : 'play_arrow' }}
+                </span>
+                <span>{{ isPlaying() ? 'LIVE REEL' : 'PAUSED' }}</span>
+              </button>
+
+              @for (feed of videoFeeds; track feed.id; let idx = $index) {
+                <button
+                  type="button"
+                  (click)="selectFeed(idx)"
+                  class="relative overflow-hidden px-3 py-1.5 border font-headline text-[11px] uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer"
+                  [class]="activeFeedIndex() === idx 
+                    ? 'bg-secondary text-primary border-secondary font-bold' 
+                    : 'bg-black/50 text-white/80 border-white/20 hover:bg-white/15'"
+                >
+                  <span class="w-1.5 h-1.5 rounded-full" [class]="activeFeedIndex() === idx ? 'bg-primary' : 'bg-white/40'"></span>
+                  <span>{{ feed.code }}: {{ feed.title }}</span>
+                </button>
+              }
+            </div>
+
+            <!-- Active Site Telemetry Readout -->
+            <div class="flex items-center gap-2 text-white/85 text-[11px] font-headline tracking-wider bg-black/40 px-3.5 py-1.5 border border-white/15">
+              <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+              <span class="text-secondary font-bold">{{ videoFeeds[activeFeedIndex()].location }}:</span>
+              <span class="text-white">{{ videoFeeds[activeFeedIndex()].task }}</span>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -812,14 +870,48 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   readonly activeAccordionIndex = signal<number | null>(0);
 
-  readonly liveOperations = [
-    'TOWER CRANE 01: HOISTING STRUCTURAL STEEL CORE [+185M]',
-    'SLIPFORM CONCRETE POUR: RUNNING CYCLE #14 • CONTINUOUS BATCH',
-    'UNITIZED FACADE: LEVEL 32 ACOUSTIC MODULES DEPLOYED',
-    'DIGITAL 4D BIM: 100% TOLERANCE COMPLIANCE VERIFIED'
+  readonly videoFeeds = [
+    {
+      id: 'cam-01',
+      code: 'CAM 01',
+      title: 'SUPERSTRUCTURE CORE',
+      location: 'Riyadh Financial District',
+      task: 'Crane Hoist & Continuous Core Pour [+185m]',
+      image: '/images/services/general-contracting.jpg'
+    },
+    {
+      id: 'cam-02',
+      code: 'CAM 02',
+      title: 'HEAVY CIVIL',
+      location: 'Metropolitan Substructure',
+      task: 'Mass Concrete Raft & Steel Reinforcement [14,000 m³]',
+      image: '/images/services/civil-structural.jpg'
+    },
+    {
+      id: 'cam-03',
+      code: 'CAM 03',
+      title: 'ENCLOSURE SYSTEM',
+      location: 'Commercial Tower',
+      task: 'Parametric Glazing & Thermal Facade Erection',
+      image: '/images/services/design-build.jpg'
+    },
+    {
+      id: 'cam-04',
+      code: 'CAM 04',
+      title: 'NIGHT OPERATIONS',
+      location: 'Tower Infrastructure',
+      task: '24/7 Tower Crane Swing & Structural Erection',
+      image: '/images/hero/hero-construction-dusk.jpg'
+    }
   ];
-  readonly activeOpIndex = signal<number>(0);
-  private timerId?: any;
+
+  readonly activeFeedIndex = signal<number>(0);
+  readonly isPlaying = signal<boolean>(true);
+  readonly timecode = signal<string>('00:14:28:09');
+
+  private feedCycleTimer?: any;
+  private timecodeTimer?: any;
+  private frameCounter = 14 * 60 * 30 + 28 * 30 + 9;
 
   ngOnInit(): void {
     this.seo.setPageMeta({
@@ -829,16 +921,52 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
     if (typeof window !== 'undefined') {
-      this.timerId = setInterval(() => {
-        this.activeOpIndex.update((curr) => (curr + 1) % this.liveOperations.length);
-      }, 3000);
+      // Fast ticking real-time camera timecode (30 fps)
+      this.timecodeTimer = setInterval(() => {
+        this.frameCounter++;
+        const totalSec = Math.floor(this.frameCounter / 30);
+        const frames = this.frameCounter % 30;
+        const hours = Math.floor(totalSec / 3600);
+        const mins = Math.floor((totalSec % 3600) / 60);
+        const secs = totalSec % 60;
+        const pad = (n: number) => n.toString().padStart(2, '0');
+        this.timecode.set(`${pad(hours)}:${pad(mins)}:${pad(secs)}:${pad(frames)}`);
+      }, 33);
+
+      // Automated multi-camera cycle
+      this.startFeedCycle();
     }
   }
 
   ngOnDestroy(): void {
-    if (this.timerId) {
-      clearInterval(this.timerId);
+    if (this.timecodeTimer) {
+      clearInterval(this.timecodeTimer);
     }
+    if (this.feedCycleTimer) {
+      clearInterval(this.feedCycleTimer);
+    }
+  }
+
+  private startFeedCycle(): void {
+    if (this.feedCycleTimer) {
+      clearInterval(this.feedCycleTimer);
+    }
+    this.feedCycleTimer = setInterval(() => {
+      if (this.isPlaying()) {
+        this.activeFeedIndex.update((curr) => (curr + 1) % this.videoFeeds.length);
+      }
+    }, 5500);
+  }
+
+  selectFeed(index: number): void {
+    this.activeFeedIndex.set(index);
+    if (this.isPlaying()) {
+      this.startFeedCycle();
+    }
+  }
+
+  togglePlay(): void {
+    this.isPlaying.update((val) => !val);
   }
 
   toggleAccordion(index: number): void {

@@ -73,25 +73,58 @@
   transform: scale(1.035);
 }
 
-/* Dynamic Active Construction Hero Motion Effects */
-@keyframes heroCameraActive {
+/* Dynamic Active Construction Video Reel Motion Effects */
+@keyframes videoCameraMotion1 {
   0% {
-    transform: scale(1.02) translate3d(0, 0, 0);
+    transform: scale(1.03) translate3d(0, 0, 0);
   }
-  35% {
-    transform: scale(1.08) translate3d(-1.5%, -1%, 0);
-  }
-  70% {
-    transform: scale(1.12) translate3d(1%, -1.8%, 0);
+  50% {
+    transform: scale(1.11) translate3d(-1.8%, -1.2%, 0);
   }
   100% {
-    transform: scale(1.04) translate3d(1.5%, -0.5%, 0);
+    transform: scale(1.07) translate3d(1.2%, -2%, 0);
   }
 }
 
-.hero-cinematic-bg {
-  animation: heroCameraActive 8.5s ease-in-out infinite alternate;
+@keyframes videoCameraMotion2 {
+  0% {
+    transform: scale(1.08) translate3d(1%, -1.5%, 0);
+  }
+  50% {
+    transform: scale(1.02) translate3d(-1%, 0, 0);
+  }
+  100% {
+    transform: scale(1.12) translate3d(1.5%, -1.2%, 0);
+  }
+}
+
+.hero-video-active-0 {
+  animation: videoCameraMotion1 5.5s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
   will-change: transform;
+}
+
+.hero-video-active-1 {
+  animation: videoCameraMotion2 5.5s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+  will-change: transform;
+}
+
+.hero-video-active-2 {
+  animation: videoCameraMotion1 5.5s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+  will-change: transform;
+}
+
+.hero-video-active-3 {
+  animation: videoCameraMotion2 5.5s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+  will-change: transform;
+}
+
+/* Subtle Architectural Video Scanline Overlay */
+.video-scanline-overlay {
+  background: linear-gradient(
+    rgba(18, 22, 31, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
 }
 
 @keyframes lightSweepActive {

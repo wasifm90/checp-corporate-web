@@ -7,7 +7,7 @@ export const INDUSTRIES_DATA: Industry[] = [
     name: 'Commercial & Mixed-Use',
     subtitle: 'Institutional grade-A corporate towers, retail epicenters, and vibrant civic districts.',
     description: 'CHECP crafts commercial spaces that serve as anchors for regional economic enterprise. Through sophisticated engineering, column-free floor plates, and intelligent building envelopes, we deliver inspiring workplaces that optimize lifecycle operational performance and attract premier global tenants.',
-    featuredImage: '/images/projects/financial-district-hq.jpg',
+    featuredImage: '/images/industries/commercial-mixed-use.jpg',
     order: 1,
     capabilities: [
       'Super-tall and high-rise commercial tower superstructures',
@@ -33,7 +33,7 @@ export const INDUSTRIES_DATA: Industry[] = [
     name: 'Healthcare & Life Sciences',
     subtitle: 'Specialized surgical suites, clinical facilities, and medical research campuses.',
     description: 'Healthcare construction demands extraordinary technical discipline. CHECP creates healing environments engineered to satisfy stringent clinical hygiene standards, electromagnetic isolation, medical gas distributions, and uninterrupted emergency power systems.',
-    featuredImage: '/images/projects/sovereign-wealth-atrium.jpg',
+    featuredImage: '/images/industries/healthcare-life-sciences.jpg',
     order: 2,
     capabilities: [
       'Cleanroom construction and positive/negative pressure isolation suites',
@@ -59,7 +59,7 @@ export const INDUSTRIES_DATA: Industry[] = [
     name: 'Industrial & Logistics',
     subtitle: 'Automated fulfillment facilities, heavy processing plants, and cold storage chains.',
     description: 'As global supply chains expand, CHECP engineers the industrial backbone of regional commerce. We construct high-throughput distribution facilities, heavy processing plants, and specialized cold chain storage facilities engineered for continuous heavy vehicle traffic and automated material handling.',
-    featuredImage: '/images/projects/metropolitan-tower.jpg',
+    featuredImage: '/images/industries/industrial-logistics.jpg',
     order: 3,
     capabilities: [
       'High-tolerance superflat industrial concrete floors (TR34 DM1 / ASTM F-min 100)',
@@ -85,7 +85,7 @@ export const INDUSTRIES_DATA: Industry[] = [
     name: 'Hospitality & Luxury Assets',
     subtitle: 'Luxury coastal resorts, five-star hospitality flags, and private branded residences.',
     description: 'Creating world-class hospitality destinations requires an obsessive attention to guest experience and aesthetic perfection. CHECP delivers signature coastal retreats, luxury hotels, and private estates where master craftsmanship meets discrete, high-performance building engineering.',
-    featuredImage: '/images/projects/financial-district-hq.jpg',
+    featuredImage: '/images/industries/hospitality-luxury.jpg',
     order: 4,
     capabilities: [
       'Five-star hotel guestrooms, presidential villas, and ballroom fit-outs',
@@ -111,7 +111,7 @@ export const INDUSTRIES_DATA: Industry[] = [
     name: 'Mission Critical & Infrastructure',
     subtitle: 'Hyperscale data centers, substations, and critical civic and transport infrastructure.',
     description: 'CHECP engineers infrastructure where downtime is inconceivable. From hyperscale Tier III and Tier IV data centers to high-voltage electrical substations and transport hubs, we deliver facilities designed for continuous operation, absolute physical security, and extreme climate resilience.',
-    featuredImage: '/images/projects/coastal-maritime-terminus.jpg',
+    featuredImage: '/images/industries/mission-critical.jpg',
     order: 5,
     capabilities: [
       'Tier III and Tier IV concurrently maintainable data center facilities',

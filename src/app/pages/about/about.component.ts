@@ -33,9 +33,9 @@ import { BreadcrumbsComponent } from '../../shared/components/breadcrumbs.compon
       <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12 pb-16">
         <div class="w-full aspect-[21/9] overflow-hidden bg-primary border border-outline-variant relative">
           <img 
-            src="/images/hero/hero-main.jpg" 
+            src="/images/about/about-hero.jpg" 
             alt="CHECP site supervision and structural engineering" 
-            class="w-full h-full object-cover opacity-80"
+            class="w-full h-full object-cover opacity-85"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white font-headline text-[11px] tracking-wider uppercase">

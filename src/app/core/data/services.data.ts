@@ -7,7 +7,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'General Contracting',
     shortDescription: 'Full accountability across site execution, trade management, safety governance, and critical-path delivery for major commercial and institutional builds.',
     description: 'As a principal general contractor, CHECP assumes direct contractual and operational responsibility for turning architectural masterplans into physical reality. We coordinate multidisciplinary trades, manage deep regional supply chains, enforce unyielding safety protocols, and guarantee critical-path milestones under rigorous schedule discipline.',
-    image: '/images/projects/financial-district-hq.jpg',
+    image: '/images/services/general-contracting.jpg',
     capabilities: [
       'Comprehensive on-site project direction and superintendent leadership',
       'Direct trade subcontractor vetting, coordination, and quality oversight',
@@ -30,7 +30,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'Construction Management',
     shortDescription: 'Owner representation, programmatic cost control, supply chain logistics, and rigorous site inspection from pre-development through occupancy.',
     description: 'CHECP provides owner-centric construction management services, functioning as an extension of institutional clients to safeguard capital investments, compress delivery horizons, and eliminate operational vulnerabilities across complex capital portfolios.',
-    image: '/images/projects/metropolitan-tower.jpg',
+    image: '/images/services/construction-management.jpg',
     capabilities: [
       'Agency CM and Construction Manager at Risk (CMAR) delivery models',
       'Target value design, probabilistic budgeting, and continuous cost containment',
@@ -53,7 +53,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'Design & Build',
     shortDescription: 'A single point of contractual responsibility uniting architectural coordination, structural engineering, and fast-track execution.',
     description: 'Under the Design & Build model, CHECP merges architectural vision with constructability engineering under one single contract. This unified structure eradicates adversarial designer-contractor dynamics, speeds up project timelines by up to 30%, and guarantees single-source accountability for cost, quality, and schedule.',
-    image: '/images/projects/financial-district-hq.jpg',
+    image: '/images/services/design-build.jpg',
     capabilities: [
       'Single-point contractual accountability for design and construction',
       'Early phase cost certainty prior to schematic design completion',
@@ -76,7 +76,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'Preconstruction & Feasibility',
     shortDescription: 'Constructability reviews, market pricing indices, geotechnical evaluations, and detailed schedule sequencing prior to capital commitment.',
     description: 'Success on site is determined long before the first shovel touches the ground. CHECP preconstruction services provide institutional clients with absolute clarity, market-tested cost estimates, constructability analysis, and logistical foresight before committing capital.',
-    image: '/images/projects/metropolitan-tower.jpg',
+    image: '/images/services/preconstruction-feasibility.jpg',
     capabilities: [
       'Parametric quantity takeoffs and historical regional cost indexing',
       'Detailed constructability and site access feasibility reviews',
@@ -99,7 +99,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'Interior Fit-Out & Turnkey',
     shortDescription: 'High-specification corporate interiors, bespoke joinery, acoustic systems, and precision mechanical and electrical installations.',
     description: 'CHECP transforms raw architectural spaces into refined, high-performance environments. From sovereign executive boardrooms to luxury commercial headquarters, our interior specialists execute flawless millwork, bespoke stonework, advanced acoustics, and integrated smart building systems with surgical precision.',
-    image: '/images/projects/sovereign-wealth-atrium.jpg',
+    image: '/images/services/interior-fitout.jpg',
     capabilities: [
       'Turnkey Grade-A corporate workplace and hospitality interior execution',
       'Custom architectural millwork, veneer matching, and specialized joinery',
@@ -122,7 +122,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'Renovation & Modernization',
     shortDescription: 'Structural reinforcement, MEP upgrades, and exterior facade retrofitting in operational commercial and institutional facilities.',
     description: 'Upgrading operational buildings requires specialized sensitivity to continuous tenant activity, noise constraints, and structural preservation. CHECP delivers complex structural alterations, building envelope retrofits, and full MEP modernization while minimizing disruption to ongoing operations.',
-    image: '/images/projects/financial-district-hq.jpg',
+    image: '/images/services/renovation-modernization.jpg',
     capabilities: [
       'Carbon-fiber reinforced polymer (CFRP) structural strengthening',
       'Facade replacement and building envelope energy retrofits',
@@ -145,7 +145,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'Civil & Structural Engineering',
     shortDescription: 'Heavy earthworks, foundation systems, post-tensioned slabs, subterranean structures, and infrastructure networks.',
     description: 'From deep subterranean basements in high-density urban zones to monumental post-tensioned superstructures, CHECP delivers robust structural solutions engineered for seismic resistance, extreme ambient temperatures, and monumental structural longevity.',
-    image: '/images/projects/metropolitan-tower.jpg',
+    image: '/images/services/civil-structural.jpg',
     capabilities: [
       'Deep excavation, secant piling, sheet piling, and rock anchoring',
       'Mass concrete foundation pours with active thermal cooling',
@@ -168,7 +168,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     name: 'Specialized Infrastructure',
     shortDescription: 'High-uptime facilities, continuous power installations, specialized clean environments, and critical municipal assets.',
     description: 'CHECP engineers mission-critical infrastructure where operational failure is not an option. We deliver heavy transport corridors, port logistics hubs, electrical sub-stations, and high-uptime facilities designed with redundant systems to ensure uninterruptible 24/7 service.',
-    image: '/images/projects/coastal-maritime-terminus.jpg',
+    image: '/images/services/specialized-infrastructure.jpg',
     capabilities: [
       'Heavy civil marine foundations and quay wall infrastructure',
       'Substations, industrial switchgear, and dual-feed power distribution',
