@@ -4,7 +4,7 @@ export const CAREERS_DATA = {
   headline: "Build something you'll be proud of.",
   subheadline: 'Join a team that values expertise, collaboration and meaningful project delivery.',
   cultureDescription: 'At CHECP, we believe remarkable engineering is achieved by empowered, multidisciplinary teams who share a relentless commitment to craft, precision, and mutual respect. We offer an environment where technical rigor meets visionary execution on the region’s most transformative capital works.',
-  image: '/images/careers/engineering-team.jpg',
+  image: '/images/careers/careers-team.jpg',
   pillars: [
     {
       title: 'Craft & Engineering Rigor',

@@ -15,7 +15,12 @@ import { CounterComponent } from '../../shared/components/counter.component';
   imports: [RouterLink, CounterComponent],
   template: `
     <!-- SECTION 1 — CINEMATIC HERO (Fresh Architectural Video Reel Experience) -->
-    <section class="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-end overflow-hidden bg-primary">
+    <section 
+      class="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-end overflow-hidden bg-primary cursor-pointer select-none"
+      (click)="onBannerClick($event)"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
+    >
       
       <!-- Video Viewport & Multi-Camera Dynamic Backgrounds -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -94,7 +99,7 @@ import { CounterComponent } from '../../shared/components/counter.component';
             <span class="hidden sm:inline text-white/30">•</span>
             <span class="hidden sm:inline text-white/80">4K UHD &bull; 60 FPS</span>
             <span class="hidden md:inline text-white/30">•</span>
-            <span class="hidden md:inline text-secondary font-bold">{{ videoFeeds[activeFeedIndex()].code }}</span>
+            <span class="hidden md:inline text-secondary font-bold">{{ videoFeeds[activeFeedIndex()].title }}</span>
           </div>
         </div>
 
@@ -122,44 +127,68 @@ import { CounterComponent } from '../../shared/components/counter.component';
           </a>
         </div>
 
-        <!-- Video Multi-Camera Controller Bar -->
+        <!-- Video Reel Timeline & Interaction Bar -->
         <div class="mt-2 pt-4 border-t border-white/15 flex flex-col gap-3">
           
-          <!-- Channel Switcher Tabs -->
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <div class="flex flex-wrap items-center gap-2">
-              <button 
-                type="button"
-                (click)="togglePlay()"
-                class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white flex items-center gap-1.5 text-[11px] font-headline uppercase tracking-wider transition-colors cursor-pointer"
-                [title]="isPlaying() ? 'Pause Live Camera Feed' : 'Resume Live Camera Feed'"
+          <!-- Segmented Video Timeline Progress Bars -->
+          <div class="grid grid-cols-4 gap-2.5 w-full max-w-xl">
+            @for (feed of videoFeeds; track feed.id; let idx = $index) {
+              <div 
+                (click)="selectFeed(idx); $event.stopPropagation()"
+                class="group flex flex-col gap-1.5 cursor-pointer py-1"
+                [title]="feed.title"
               >
-                <span class="material-symbols-outlined text-[15px]">
-                  {{ isPlaying() ? 'pause' : 'play_arrow' }}
-                </span>
-                <span>{{ isPlaying() ? 'LIVE REEL' : 'PAUSED' }}</span>
-              </button>
+                <div class="h-1 sm:h-1.5 w-full bg-white/20 rounded-full overflow-hidden transition-colors group-hover:bg-white/40">
+                  <div 
+                    class="h-full bg-secondary transition-all duration-500 rounded-full"
+                    [class.w-full]="activeFeedIndex() === idx"
+                    [class.w-0]="activeFeedIndex() !== idx"
+                  ></div>
+                </div>
+                <div class="hidden sm:flex justify-between items-center text-[10px] font-headline tracking-wider uppercase">
+                  <span [class]="activeFeedIndex() === idx ? 'text-secondary font-bold' : 'text-white/50 group-hover:text-white/80'">
+                    {{ feed.title }}
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
 
-              @for (feed of videoFeeds; track feed.id; let idx = $index) {
-                <button
-                  type="button"
-                  (click)="selectFeed(idx)"
-                  class="relative overflow-hidden px-3 py-1.5 border font-headline text-[11px] uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer"
-                  [class]="activeFeedIndex() === idx 
-                    ? 'bg-secondary text-primary border-secondary font-bold' 
-                    : 'bg-black/50 text-white/80 border-white/20 hover:bg-white/15'"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full" [class]="activeFeedIndex() === idx ? 'bg-primary' : 'bg-white/40'"></span>
-                  <span>{{ feed.code }}: {{ feed.title }}</span>
-                </button>
-              }
-            </div>
-
+          <!-- Active Site Telemetry Readout & Interaction Controls -->
+          <div class="flex flex-wrap items-center justify-between gap-3 text-[11px] font-headline tracking-wider">
             <!-- Active Site Telemetry Readout -->
-            <div class="flex items-center gap-2 text-white/85 text-[11px] font-headline tracking-wider bg-black/40 px-3.5 py-1.5 border border-white/15">
+            <div class="flex items-center gap-2 text-white/85 bg-black/45 backdrop-blur-sm px-3.5 py-1.5 border border-white/15">
               <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
               <span class="text-secondary font-bold">{{ videoFeeds[activeFeedIndex()].location }}:</span>
               <span class="text-white">{{ videoFeeds[activeFeedIndex()].task }}</span>
+            </div>
+
+            <!-- Interaction Hints & Navigation Chevrons -->
+            <div class="flex items-center gap-3">
+              <span class="text-white/50 text-[10px] sm:text-[11px] tracking-wider uppercase flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[14px] text-secondary">swipe</span>
+                <span class="hidden sm:inline">Click banner or swipe to advance</span>
+                <span class="sm:hidden">Swipe or tap banner</span>
+              </span>
+
+              <div class="flex items-center gap-1">
+                <button
+                  type="button"
+                  (click)="prevFeed(); $event.stopPropagation()"
+                  class="w-7 h-7 flex items-center justify-center bg-black/50 hover:bg-white/20 border border-white/20 text-white rounded-sm transition-colors cursor-pointer"
+                  title="Previous scene"
+                >
+                  <span class="material-symbols-outlined text-[15px]">chevron_left</span>
+                </button>
+                <button
+                  type="button"
+                  (click)="nextFeed(); $event.stopPropagation()"
+                  class="w-7 h-7 flex items-center justify-center bg-black/50 hover:bg-white/20 border border-white/20 text-white rounded-sm transition-colors cursor-pointer"
+                  title="Next scene"
+                >
+                  <span class="material-symbols-outlined text-[15px]">chevron_right</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -908,33 +937,29 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   readonly videoFeeds = [
     {
-      id: 'cam-01',
-      code: 'CAM 01',
+      id: 'feed-01',
       title: 'SUPERSTRUCTURE CORE',
       location: 'Riyadh Financial District',
       task: 'Crane Hoist & Continuous Core Pour [+185m]',
       image: '/images/services/general-contracting.jpg'
     },
     {
-      id: 'cam-02',
-      code: 'CAM 02',
-      title: 'HEAVY CIVIL',
+      id: 'feed-02',
+      title: 'HEAVY CIVIL FOUNDATIONS',
       location: 'Metropolitan Substructure',
       task: 'Mass Concrete Raft & Steel Reinforcement [14,000 m³]',
       image: '/images/services/civil-structural.jpg'
     },
     {
-      id: 'cam-03',
-      code: 'CAM 03',
-      title: 'ENCLOSURE SYSTEM',
+      id: 'feed-03',
+      title: 'FACADE & ENCLOSURE',
       location: 'Commercial Tower',
       task: 'Parametric Glazing & Thermal Facade Erection',
       image: '/images/services/design-build.jpg'
     },
     {
-      id: 'cam-04',
-      code: 'CAM 04',
-      title: 'NIGHT OPERATIONS',
+      id: 'feed-04',
+      title: 'STRUCTURAL STEEL ERECTION',
       location: 'Tower Infrastructure',
       task: '24/7 Tower Crane Swing & Structural Erection',
       image: '/images/hero/hero-construction-dusk.jpg'
@@ -948,6 +973,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   private feedCycleTimer?: any;
   private timecodeTimer?: any;
   private frameCounter = 14 * 60 * 30 + 28 * 30 + 9;
+
+  private touchStartX = 0;
+  private touchStartY = 0;
 
   ngOnInit(): void {
     this.seo.setPageMeta({
@@ -998,6 +1026,51 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.activeFeedIndex.set(index);
     if (this.isPlaying()) {
       this.startFeedCycle();
+    }
+  }
+
+  nextFeed(): void {
+    this.activeFeedIndex.update((curr) => (curr + 1) % this.videoFeeds.length);
+    if (this.isPlaying()) {
+      this.startFeedCycle();
+    }
+  }
+
+  prevFeed(): void {
+    this.activeFeedIndex.update((curr) => (curr - 1 + this.videoFeeds.length) % this.videoFeeds.length);
+    if (this.isPlaying()) {
+      this.startFeedCycle();
+    }
+  }
+
+  onBannerClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    // Don't advance scene if clicking on interactive CTA links, buttons or icons
+    if (target.closest('a, button, input')) {
+      return;
+    }
+    this.nextFeed();
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    if (event.touches.length > 0) {
+      this.touchStartX = event.touches[0].clientX;
+      this.touchStartY = event.touches[0].clientY;
+    }
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (event.changedTouches.length > 0) {
+      const diffX = event.changedTouches[0].clientX - this.touchStartX;
+      const diffY = event.changedTouches[0].clientY - this.touchStartY;
+      // Horizontal swipe threshold
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          this.nextFeed();
+        } else {
+          this.prevFeed();
+        }
+      }
     }
   }
 
