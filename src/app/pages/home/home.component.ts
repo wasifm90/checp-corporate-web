@@ -79,28 +79,12 @@ import { CounterComponent } from '../../shared/components/counter.component';
       <!-- Hero Content Container -->
       <div class="relative z-20 max-w-7xl mx-auto w-full px-6 lg:px-8 pb-8 pt-28 lg:pt-36 flex flex-col gap-6 text-on-primary">
         
-        <!-- Live Video Header Bar & Telemetry HUD -->
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block live-beacon shadow-sm shadow-secondary/50"></span>
-            <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">
-              {{ company.profile().heroEyebrow }}
-            </span>
-          </div>
-
-          <!-- Video Broadcast Telemetry HUD Pill -->
-          <div class="flex items-center gap-2.5 px-3 py-1.5 bg-black/65 backdrop-blur-md border border-white/20 text-white font-headline text-[10px] sm:text-[11px] tracking-wider uppercase">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-              <span class="font-bold text-red-400">REC</span>
-              <span class="text-white/40">|</span>
-              <span class="font-mono text-[11px] sm:text-[12px] text-white tracking-widest font-semibold">{{ timecode() }}</span>
-            </div>
-            <span class="hidden sm:inline text-white/30">•</span>
-            <span class="hidden sm:inline text-white/80">4K UHD &bull; 60 FPS</span>
-            <span class="hidden md:inline text-white/30">•</span>
-            <span class="hidden md:inline text-secondary font-bold">{{ videoFeeds[activeFeedIndex()].title }}</span>
-          </div>
+        <!-- Hero Header Bar -->
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block live-beacon shadow-sm shadow-secondary/50"></span>
+          <span class="font-headline text-[11px] uppercase tracking-[0.2em] text-secondary font-bold">
+            {{ company.profile().heroEyebrow }}
+          </span>
         </div>
 
         <h1 class="font-headline text-fluid-hero leading-[1.08] font-medium tracking-tight text-white max-w-4xl">
@@ -968,11 +952,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   readonly activeFeedIndex = signal<number>(0);
   readonly isPlaying = signal<boolean>(true);
-  readonly timecode = signal<string>('00:14:28:09');
 
   private feedCycleTimer?: any;
-  private timecodeTimer?: any;
-  private frameCounter = 14 * 60 * 30 + 28 * 30 + 9;
 
   private touchStartX = 0;
   private touchStartY = 0;
@@ -985,27 +966,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
     if (typeof window !== 'undefined') {
-      // Fast ticking real-time camera timecode (30 fps)
-      this.timecodeTimer = setInterval(() => {
-        this.frameCounter++;
-        const totalSec = Math.floor(this.frameCounter / 30);
-        const frames = this.frameCounter % 30;
-        const hours = Math.floor(totalSec / 3600);
-        const mins = Math.floor((totalSec % 3600) / 60);
-        const secs = totalSec % 60;
-        const pad = (n: number) => n.toString().padStart(2, '0');
-        this.timecode.set(`${pad(hours)}:${pad(mins)}:${pad(secs)}:${pad(frames)}`);
-      }, 33);
-
-      // Automated multi-camera cycle
+      // Automated visual scene cycle
       this.startFeedCycle();
     }
   }
 
   ngOnDestroy(): void {
-    if (this.timecodeTimer) {
-      clearInterval(this.timecodeTimer);
-    }
     if (this.feedCycleTimer) {
       clearInterval(this.feedCycleTimer);
     }
