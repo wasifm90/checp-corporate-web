@@ -173,11 +173,11 @@ export const PROJECTS_DATA: Project[] = [
     client: 'Ministry of Transport & Logistics Services',
     shortDescription: 'Multi-lane divided expressway construction, heavy-duty asphalt paving, precast prestressed bridge viaducts, and intelligent traffic management systems.',
     description: 'The Trans-Regional Expressway Corridor is a landmark civil transportation undertaking delivering 84 kilometers of continuous 8-lane heavy-duty highway infrastructure, including 6 grade-separated flyover interchanges, precast prestressed concrete viaduct spans, and comprehensive stormwater runoff culverts. CHECP deployed automated laser-guided slipform asphalt paving trains and high-compaction vibratory rollers to meet the Kingdom’s most rigorous surface regularity, friction, and heavy axle-load standards under extreme desert temperature conditions.',
-    featuredImage: '/images/projects/road-construction-expressway.jpg',
+    featuredImage: '/images/projects/desert-road-construction.jpg',
     gallery: [
+      '/images/projects/desert-road-grading.jpg',
       '/images/projects/road-construction-expressway.jpg',
-      '/images/projects/infrastructure-bridge.jpg',
-      '/images/projects/expressway-compactor-train.jpg'
+      '/images/projects/infrastructure-bridge.jpg'
     ],
     scope: [
       '84 km dual-carriageway 8-lane heavy expressway construction',
